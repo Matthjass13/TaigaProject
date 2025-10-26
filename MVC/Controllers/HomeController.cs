@@ -25,7 +25,29 @@ namespace MVC.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var vm = BuildFakeProductionVm();
+            return View(vm);
+        }
+
+        private ProductionChartVm BuildFakeProductionVm()
+        {
+            int currentYear = DateTime.Now.Year;
+            var years = Enumerable.Range(currentYear - 9, 10).ToList(); // 10 dernières années
+
+            // Données fictives (ex: croissance légère). Tu peux ajuster.
+            var rnd = new Random(42);
+            var kwh = years
+                .Select((y, i) => 100_000 + i * 8_000 + rnd.Next(-3_000, 3_000)) // kWh
+                .Select(v => Math.Max(0, v)) // pas de valeurs négatives
+                .Select(v => (double)v)
+                .ToList();
+
+            return new ProductionChartVm
+            {
+                Years = years,
+                KWh = kwh,
+                Title = "Production [kWh]"
+            };
         }
 
         public IActionResult NER()

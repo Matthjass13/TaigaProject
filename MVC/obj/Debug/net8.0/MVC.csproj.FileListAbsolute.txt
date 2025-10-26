@@ -32,3 +32,38 @@ C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\Integrati
 C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject\MVC\obj\Debug\net8.0\MVC.pdb
 C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject\MVC\obj\Debug\net8.0\MVC.genruntimeconfig.cache
 C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject\MVC\obj\Debug\net8.0\ref\MVC.dll
+C:\2025UAS06F2_new\MVC\bin\Debug\net8.0\appsettings.Development.json
+C:\2025UAS06F2_new\MVC\bin\Debug\net8.0\appsettings.json
+C:\2025UAS06F2_new\MVC\bin\Debug\net8.0\MVC.staticwebassets.runtime.json
+C:\2025UAS06F2_new\MVC\bin\Debug\net8.0\MVC.staticwebassets.endpoints.json
+C:\2025UAS06F2_new\MVC\bin\Debug\net8.0\MVC.exe
+C:\2025UAS06F2_new\MVC\bin\Debug\net8.0\MVC.deps.json
+C:\2025UAS06F2_new\MVC\bin\Debug\net8.0\MVC.runtimeconfig.json
+C:\2025UAS06F2_new\MVC\bin\Debug\net8.0\MVC.dll
+C:\2025UAS06F2_new\MVC\bin\Debug\net8.0\MVC.pdb
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\MVC.GeneratedMSBuildEditorConfig.editorconfig
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\MVC.AssemblyInfoInputs.cache
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\MVC.AssemblyInfo.cs
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\MVC.csproj.CoreCompileInputs.cache
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\MVC.MvcApplicationPartsAssemblyInfo.cache
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\MVC.RazorAssemblyInfo.cache
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\MVC.RazorAssemblyInfo.cs
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\MVC.sourcelink.json
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\scopedcss\bundle\MVC.styles.css
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\scopedcss\projectbundle\MVC.bundle.scp.css
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\staticwebassets.build.json
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\staticwebassets.development.json
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\staticwebassets\msbuild.MVC.Microsoft.AspNetCore.StaticWebAssets.props
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\staticwebassets\msbuild.MVC.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\staticwebassets\msbuild.build.MVC.props
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.MVC.props
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.MVC.props
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\staticwebassets.pack.json
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\MVC.dll
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\refint\MVC.dll
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\MVC.pdb
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\MVC.genruntimeconfig.cache
+C:\2025UAS06F2_new\MVC\obj\Debug\net8.0\ref\MVC.dll
