@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<div class="container mt-5 text-center">
+    <h3 class="mb-4">Nouvelles ER</h3>
+
+    <div class="d-inline-block p-3 border rounded-3 shadow-sm" style="background-color:#f8f9fa;">
+        <div class="row row-cols-2 g-3" style="width: 260px; margin: auto;">
+
+         
+
+
+            <div class="col">
+                <a asp-controller="Home" asp-action="PV" class="btn btn-light border w-100 h-100 py-4">
+                    <div style="font-size:2rem;">☀️</div>
+                    <div>PV</div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a asp-controller="Home" asp-action="MiniHydraulique" class="btn btn-light border w-100 h-100 py-4">
+                    <div style="font-size:2rem;">⚙️</div>
+                    <div>mini-hydr.</div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a asp-controller="Home" asp-action="Eolien" class="btn btn-light border w-100 h-100 py-4">
+                    <div style="font-size:2rem;">🌬️</div>
+                    <div>Eolien</div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a asp-controller="Home" asp-action="Biogaz" class="btn btn-light border w-100 h-100 py-4">
+                    <div style="font-size:2rem;">🅱️</div>
+                    <div>Bio-gaz</div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
