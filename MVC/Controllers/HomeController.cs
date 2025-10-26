@@ -13,10 +13,50 @@ namespace MVC.Controllers
             _logger = logger;
         }
 
+
+        //private IServices _services;
+
+        //public HomeController(IServices services)
+        //{
+            //_services = services;
+        //}
+
+
+
         public IActionResult Index()
         {
             return View();
         }
+
+        public IActionResult NER()
+        {
+            return View("~/Views/Home/NER/NER.cshtml");
+        }
+
+        public IActionResult PV()
+        {
+            return View("~/Views/Home/NER/PV/PV.cshtml");
+        }
+
+        public IActionResult MiniHydraulique()
+        {
+            return View("~/Views/Home/NER/Mini-hydraulique/MiniHydraulique.cshtml");
+        }
+
+        public IActionResult Eolien()
+        {
+            return View("~/Views/Home/NER/Eolien/Eolien.cshtml");
+        }
+
+        public IActionResult Biogaz()
+        {
+            return View("~/Views/Home/NER/Biogaz/Biogaz.cshtml");
+        }
+
+
+
+
+
 
         public IActionResult Privacy()
         {
