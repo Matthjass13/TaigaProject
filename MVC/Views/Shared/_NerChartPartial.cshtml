@@ -1,0 +1,47 @@
+﻿@using System.Text.Json
+@{
+    
+    var nerJson = ViewBag.NerJson ?? "[]";
+}
+
+<div class="ner-thumbnail text-center my-3">
+    <h4 class="mb-1">Portal of the new renewable energy in Valais</h4>
+    <p class="text-muted small">Distribution by energy type</p>
+
+    <div style="max-width:380px; margin: 0 auto;">
+        <canvas id="energyPieHome" aria-label="Small pie chart showing energy distribution" role="img"></canvas>
+    </div>
+
+    <div class="mt-2">
+        <a class="btn btn-outline-primary btn-sm" asp-controller="Ner" asp-action="Index">NER detail</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    (function(){
+        try {
+            const data = @Html.Raw(nerJson);
+            const labels = data.map(d => d.Name);
+            const values = data.map(d => d.Value);
+            const colors = ['#FF6384','#36A2EB','#FFCE56','#8BC34A'];
+
+            const ctx = document.getElementById('energyPieHome');
+            if(!ctx) return;
+            new Chart(ctx.getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{ data: values, backgroundColor: colors, borderColor: '#ffffff', borderWidth: 1 }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: { legend: { display: false } }
+                }
+            });
+        } catch(e) {
+            console && console.error('NER partial render error', e);
+        }
+    })();
+</script>
