@@ -1,0 +1,55 @@
+﻿@* /Views/Shared/_NERDiagramPartial.cshtml *@
+<div class="mt-5">
+    <h2 class="h4 mb-3 text-center">Répartition par type d’énergie renouvelable</h2>
+
+    <div class="card shadow-sm border-0 mx-auto" style="border-radius:16px; max-width: 600px;">
+        <div class="card-body">
+            <div class="ratio ratio-1x1">
+                <canvas id="nerPieChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // --- Données fictives pour le diagramme circulaire NER ---
+    const nerLabels = ['Hydraulic over water', 'Hydraulic accumulator', 'New renewables energy'];
+    const nerValues = [45, 50, 5]; // Données fictives
+
+    const nerCtx = document.getElementById('nerPieChart');
+
+    new Chart(nerCtx, {
+        type: 'pie',
+        data: {
+            labels: nerLabels,
+            datasets: [{
+                data: nerValues,
+                backgroundColor: [
+                    'rgba(100, 149, 237, 0.8)', // bleu
+                    'rgba(192, 192, 192, 0.8)', // gris clair
+                    'rgba(255, 205, 86, 0.8)'   // jaune
+                ],
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: 'Répartition des sources d’énergie'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => `${ctx.label}: ${ctx.parsed}%`
+                    }
+                }
+            }
+        }
+    });
+</script>
