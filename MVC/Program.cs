@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using ClassLibrary.DataAccessLayer;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<ValaisContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ValaisDB")));
 
 var app = builder.Build();
 

@@ -1,52 +1,56 @@
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using ClassLibrary.DataAccessLayer;
+using ClassLibrary.Models;
 
 namespace MVC.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ValaisContext _ctx;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ValaisContext ctx)
         {
             _logger = logger;
+            _ctx = ctx;
         }
-
-
-        //private IServices _services;
-
-        //public HomeController(IServices services)
-        //{
-            //_services = services;
-        //}
 
 
 
         public IActionResult Index()
         {
-            var vm = BuildFakeProductionVm();
+            var vm = BuildDbProductionVm();
             return View(vm);
         }
 
-        private ProductionChartVm BuildFakeProductionVm()
+        private ProductionChartVm BuildDbProductionVm()
         {
-            int currentYear = DateTime.Now.Year;
-            var years = Enumerable.Range(currentYear - 9, 10).ToList(); // 10 dernières années
+            const string ENERGY_NAME = "Production cantonale brute";
 
-            // Données fictives (ex: croissance légère). Tu peux ajuster.
-            var rnd = new Random(42);
-            var kwh = years
-                .Select((y, i) => 100_000 + i * 8_000 + rnd.Next(-3_000, 3_000)) // kWh
-                .Select(v => Math.Max(0, v)) // pas de valeurs négatives
-                .Select(v => (double)v)
+            // jointure pour récupérer (Année, Valeur) pour le type demandé
+            var rows = _ctx.YearlyProduction
+                .Include(p => p.Year)
+                .Include(p => p.EnergyType)
+                .Where(p => p.EnergyType.Name == ENERGY_NAME)
+                .OrderByDescending(p => p.Year.Year)   // du plus récent au plus ancien
+                .Take(10)                               // 10 dernières années
+                .AsNoTracking()
                 .ToList();
+
+            // remettre dans l’ordre chronologique pour le graphique
+            rows.Reverse();
+
+            var years = rows.Select(r => (int)r.Year.Year).ToList();
+            var values = rows.Select(r => (double)r.ValueGWh).ToList();
 
             return new ProductionChartVm
             {
+                Title = "Production [kWh]",
                 Years = years,
-                KWh = kwh,
-                Title = "Production [kWh]"
+                KWh = values
             };
         }
 
