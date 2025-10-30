@@ -13,9 +13,13 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // --- Données fictives pour le diagramme circulaire NER ---
-    const nerLabels = ['Hydraulic over water', 'Hydraulic accumulator', 'New renewables energy'];
-    const nerValues = [45, 50, 5]; // Données fictives
+    const nerLabels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+        (IEnumerable<string>)(ViewBag.NerLabels ?? new List<string>())
+    ));
+    const nerValues = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+        (IEnumerable<double>)(ViewBag.NerValues ?? new List<double>())
+    ));
+    const nerYear = @Html.Raw(ViewBag.NerYear ?? 0);
 
     const nerCtx = document.getElementById('nerPieChart');
 
@@ -26,9 +30,11 @@
             datasets: [{
                 data: nerValues,
                 backgroundColor: [
-                    'rgba(100, 149, 237, 0.8)', // bleu
-                    'rgba(192, 192, 192, 0.8)', // gris clair
-                    'rgba(255, 205, 86, 0.8)'   // jaune
+                    'rgba(100,149,237,0.8)',
+                    'rgba(192,192,192,0.8)',
+                    'rgba(255,205,86,0.8)',
+                    'rgba(75,192,192,0.8)',
+                    'rgba(153,102,255,0.8)'
                 ],
                 borderColor: '#fff',
                 borderWidth: 2
@@ -37,19 +43,22 @@
         options: {
             responsive: true,
             plugins: {
-                legend: {
-                    position: 'bottom'
-                },
+                legend: { position: 'bottom' },
                 title: {
                     display: true,
-                    text: 'Répartition des sources d’énergie'
+                    text: `Production cantonale brute — répartition (${nerYear})`
                 },
                 tooltip: {
                     callbacks: {
-                        label: (ctx) => `${ctx.label}: ${ctx.parsed}%`
+                        label: (ctx) => {
+                            const total = nerValues.reduce((a,b)=>a+b,0);
+                            const pct = total ? (ctx.parsed/total*100).toFixed(1) : 0;
+                            return `${ctx.label}: ${ctx.parsed.toLocaleString()} GWh (${pct}%)`;
+                        }
                     }
                 }
             }
         }
     });
 </script>
+
