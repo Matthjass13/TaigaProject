@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\2025UAS06F2_new\\ClassLibrary\\ClassLibrary.csproj": {}
+    "C:\\lifecycle2\\ClassLibrary\\ClassLibrary.csproj": {}
   },
   "projects": {
-    "C:\\2025UAS06F2_new\\ClassLibrary\\ClassLibrary.csproj": {
+    "C:\\lifecycle2\\ClassLibrary\\ClassLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\2025UAS06F2_new\\ClassLibrary\\ClassLibrary.csproj",
+        "projectUniqueName": "C:\\lifecycle2\\ClassLibrary\\ClassLibrary.csproj",
         "projectName": "ClassLibrary",
-        "projectPath": "C:\\2025UAS06F2_new\\ClassLibrary\\ClassLibrary.csproj",
+        "projectPath": "C:\\lifecycle2\\ClassLibrary\\ClassLibrary.csproj",
         "packagesPath": "C:\\Users\\perei\\.nuget\\packages\\",
-        "outputPath": "C:\\2025UAS06F2_new\\ClassLibrary\\obj\\",
+        "outputPath": "C:\\lifecycle2\\ClassLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

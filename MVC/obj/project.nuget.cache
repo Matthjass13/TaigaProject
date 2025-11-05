@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dqacriFgDBw=",
+  "dgSpecHash": "qd6NjiXufQk=",
   "success": true,
-  "projectFilePath": "C:\\2025UAS06F2_new\\MVC\\MVC.csproj",
+  "projectFilePath": "C:\\lifecycle2\\MVC\\MVC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\perei\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\perei\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
