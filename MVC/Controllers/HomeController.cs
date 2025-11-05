@@ -30,6 +30,61 @@ namespace MVC.Controllers
             return View(vm);
         }
 
+        // GET
+        [HttpGet]
+        public IActionResult PrivateInstallation(int step = 1)
+        {
+            if (step < 1) step = 1;
+            if (step > 4) step = 4;
+
+            var vm = new PrivateInstallationVm
+            {
+                Step = step
+            };
+
+            return View("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml", vm);
+        }
+
+        // POST (quand on valide une étape)
+        [HttpPost]
+        public IActionResult PrivateInstallation(PrivateInstallationVm vm)
+        {
+            // Étape 3 : validation orientation
+            if (vm.Step == 3 && !ModelState.IsValid)
+            {
+                return View("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml", vm);
+            }
+
+            // Étape 4 : clic sur le bouton "Save"
+            if (vm.Step == 4)
+            {
+                // Ici tu pourrais sauvegarder en DB plus tard
+
+                // On simule un numéro d'enregistrement
+                var registrationNumber = "9999999";
+                TempData["RegistrationNumber"] = registrationNumber;
+
+                return RedirectToAction("PrivateInstallationConfirmation");
+            }
+
+            // Étapes 1 -> 2 -> 3 : on avance simplement
+            vm.Step = Math.Min(vm.Step + 1, 4);
+            ModelState.Clear();
+
+            return View("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml", vm);
+        }
+
+        // Page de confirmation
+        public IActionResult PrivateInstallationConfirmation()
+        {
+            var reg = TempData["RegistrationNumber"]?.ToString() ?? "9999999";
+            ViewBag.RegistrationNumber = reg;
+
+            return View("~/Views/Home/PrivateInstallation/PrivateInstallationConfirmation.cshtml");
+        }
+
+
+
         private ProductionChartVm BuildDbProductionVm()
         {
             const string ENERGY_NAME = "Production cantonale brute";

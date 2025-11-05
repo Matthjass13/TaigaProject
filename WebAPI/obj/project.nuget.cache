@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FLXScQNwvfE=",
+  "dgSpecHash": "JzIp9CRZahQ=",
   "success": true,
-  "projectFilePath": "C:\\2025UAS06F2_new\\WebAPI\\WebAPI.csproj",
+  "projectFilePath": "C:\\lifecycle2\\WebAPI\\WebAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\perei\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\perei\\.nuget\\packages\\microsoft.openapi\\1.6.14\\microsoft.openapi.1.6.14.nupkg.sha512",

@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Saisie de mon installation privée - Confirmation";
+    var regNumber = ViewBag.RegistrationNumber ?? "9999999";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+<div class="container py-4" style="max-width: 900px;">
+    <!-- 🧭 Fil d'Ariane -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Installation privée
+            </li>
+        </ol>
+    </nav>
+
+    <h1 class="fw-bold mb-4">Saisie de mon installation privée</h1>
+
+    <div class="card shadow-sm" style="border-radius:16px;">
+        <div class="card-body text-center py-5">
+            <p class="h4 mb-4">Votre installation a été enregistrée</p>
+            <p class="h5 mb-4">N° d'enregistrement : @regNumber</p>
+
+            <!-- 🏠 Bouton Home -->
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg">
+                🏠 Retour à l'accueil
+            </a>
+        </div>
+    </div>
+</div>
