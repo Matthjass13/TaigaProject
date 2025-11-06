@@ -32,10 +32,6 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/lifecycle2/MVC/Views/Home/Installation privée/PrivateInstallation.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbnN0YWxsYXRpb24gcHJpdsOpZVxQcml2YXRlSW5zdGFsbGF0aW9uLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/lifecycle2/MVC/Views/Home/NER/Biogaz/Biogaz.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxORVJcQmlvZ2F6XEJpb2dhei5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -58,6 +54,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/lifecycle2/MVC/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/lifecycle2/MVC/Views/Home/PrivateInstallation/PrivateInstallation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YXRlSW5zdGFsbGF0aW9uXFByaXZhdGVJbnN0YWxsYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/lifecycle2/MVC/Views/Home/PrivateInstallation/PrivateInstallationConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YXRlSW5zdGFsbGF0aW9uXFByaXZhdGVJbnN0YWxsYXRpb25Db25maXJtYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/lifecycle2/MVC/Views/Shared/Error.cshtml]
