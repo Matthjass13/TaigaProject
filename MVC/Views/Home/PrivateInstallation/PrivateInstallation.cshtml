@@ -55,6 +55,59 @@
                     {
                         <h2 class="h5 mb-3">Localisation</h2>
                         <p class="text-muted">Entrez la localisation de votre installation (adresse, code postal, etc.).</p>
+
+                        <form asp-action="PrivateInstallation" method="post" novalidate>
+                            <input type="hidden" asp-for="Step" value="1" />
+
+                            <div class="row">
+                                <div class="col-md-8 mb-3">
+                                    <label asp-for="Rue" class="form-label">
+                                        Rue
+                                    </label>
+                                    <input asp-for="Rue" class="form-control" type="text"/>
+                                    <span asp-validation-for="Rue" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label asp-for="No" class="form-label">
+                                        No
+                                    </label>
+                                    <input asp-for="No" class="form-control" type="number" min="1" max="1000" step="1" />
+                                    <span asp-validation-for="No" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label asp-for="NPA" class="form-label">
+                                        NPA
+                                    </label>
+                                    <input asp-for="NPA" class="form-control" type="number" min="1000" max="9999" step="1" />
+                                    <span asp-validation-for="NPA" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <label asp-for="Localite" class="form-label">
+                                        Localité
+                                    </label>
+                                    <input asp-for="Localite" class="form-control" type="text" />
+                                    <span asp-validation-for="Localite" class="text-danger"></span>
+                                </div>
+                            </div>
+                            
+
+                            <div class="d-flex justify-content-between mt-3">
+                                <a asp-action="PrivateInstallation"
+                                   asp-route-step="1"
+                                   class="btn btn-outline-secondary">
+                                    ← Précédent
+                                </a>
+
+                                <button type="submit" class="btn btn-primary">
+                                    Suivant →
+                                </button>
+                            </div>
+                        </form>
+                
+                    
                     }
                     @* Étape 2 *@
                     else if (Model.Step == 2)

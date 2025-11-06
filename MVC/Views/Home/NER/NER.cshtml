@@ -4,4 +4,58 @@
 
 <h1>Home > NER</h1>
 
+<div style="text-align: right;">
+    <a asp-action="PrivateInstallation" class="add-installation-btn">
+        <span>Ajouter mon installation</span>
+        <div class="icon-container">
+            <span class="plus-icon">+</span>
+        </div>
+    </a>
+</div>
+
 @await Html.PartialAsync("_Menu")
+
+
+
+<style>
+    .add-installation-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: 'Segoe UI', sans-serif;
+        font-size: 14px;
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .icon-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border: 2px solid #000;
+        border-radius: 6px;
+        background-color: transparent;
+        font-weight: bold;
+        position: relative;
+    }
+
+    /* Effet irrégulier type “dessin à la main” */
+    .icon-container {
+        border: 2px solid black;
+        clip-path: polygon(5% 0%, 95% 0%, 100% 20%, 100% 80%, 95% 100%, 5% 100%, 0% 80%, 0% 20%);
+    }
+
+    .plus-icon {
+        font-size: 18px;
+        line-height: 1;
+        position: relative;
+        top: -1px;
+    }
+
+    .add-installation-btn:hover .icon-container {
+        background-color: #f0f0f0;
+    }
+</style>

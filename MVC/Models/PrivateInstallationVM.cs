@@ -28,6 +28,22 @@ namespace MVC.Models
         public double? Surface => Longueur.HasValue && Largeur.HasValue
             ? Longueur.Value * Largeur.Value
             : null;
+
+
+        [Required(ErrorMessage = "Veuillez entrer la rue.")]
+        public string? Rue { get; set; }
+
+        [Required(ErrorMessage = "Veuillez entrer le numéro de rue.")]
+        [Range(1, 1000, ErrorMessage = "Le numéro de rue doit être supérieur à 0.")]
+        public int? No { get; set; }
+
+        [Required(ErrorMessage = "Veuillez entrer le NPA.")]
+        [Range(1000, 9999, ErrorMessage = "Le NPA suisse doit avoir 4 chiffres.")]
+        public int? NPA { get; set; }
+
+        [Required(ErrorMessage = "Veuillez entrer la localité.")]
+        public string? Localite { get; set; }
+
     }
 }
 
