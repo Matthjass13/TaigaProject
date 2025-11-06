@@ -186,28 +186,57 @@
                     {
                         <h2 class="h5 mb-3">Surface</h2>
 
-                        <div class="mb-3">
-                            <p>Longueur [m] :</p>
-                            <p>Largeur [m] :</p>
-                            <p>Surface [m2] :</p>
-                        </div>
+                        <form asp-action="PrivateInstallation" method="post">
+                            <input type="hidden" asp-for="Step" value="4" />
+                            <input type="hidden" asp-for="SelectedEnergyType" />
+                            <input type="hidden" asp-for="SelectedSolarCellType" />
+                            <input type="hidden" asp-for="OrientationAzimut" />
+                            <input type="hidden" asp-for="ToitureInclinaison" />
 
-                        <div class="d-flex justify-content-between mt-3">
-                            <a asp-action="PrivateInstallation"
-                               asp-route-step="3"
-                               class="btn btn-outline-secondary">
-                                ← Précédent
-                            </a>
+                            <div class="mb-3">
+                                <label asp-for="Longueur" class="form-label">Longueur [m] :</label>
+                                <input asp-for="Longueur" class="form-control" type="number" min="0.1" step="0.1" oninput="calculateSurface()" />
+                                <span asp-validation-for="Longueur" class="text-danger"></span>
+                            </div>
 
-                            <form asp-action="PrivateInstallation" method="post" class="mb-0">
-                                <!-- IMPORTANT : on met Step à 4 "à la main" -->
-                                <input type="hidden" name="Step" value="4" />
+                            <div class="mb-3">
+                                <label asp-for="Largeur" class="form-label">Largeur [m] :</label>
+                                <input asp-for="Largeur" class="form-control" type="number" min="0.1" step="0.1" oninput="calculateSurface()" />
+                                <span asp-validation-for="Largeur" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Surface [m2] :</label>
+                                <input type="text" class="form-control" id="surfaceInput" value="@(Model.Surface?.ToString("F2") ?? "")" readonly />
+                            </div>
+
+                            <script>
+                                function calculateSurface() {
+                                    var longueur = parseFloat(document.getElementById('Longueur').value);
+                                    var largeur = parseFloat(document.getElementById('Largeur').value);
+                                    var surfaceField = document.getElementById('surfaceInput');
+
+                                    if (!isNaN(longueur) && !isNaN(largeur) && longueur > 0 && largeur > 0) {
+                                        var surface = longueur * largeur;
+                                        surfaceField.value = surface.toFixed(2);
+                                    } else {
+                                        surfaceField.value = '';
+                                    }
+                                }
+                            </script>
+
+                            <div class="d-flex justify-content-between mt-3">
+                                <a asp-action="PrivateInstallation"
+                                   asp-route-step="3"
+                                   class="btn btn-outline-secondary">
+                                    ← Précédent
+                                </a>
 
                                 <button type="submit" class="btn btn-success">
                                     💾 Enregistrer
                                 </button>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     }
 
                 </div>

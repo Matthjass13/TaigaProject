@@ -15,6 +15,19 @@ namespace MVC.Models
         [Required(ErrorMessage = "Veuillez entrer l'inclinaison du toit.")]
         [Range(0, 90, ErrorMessage = "L'inclinaison doit être entre 0° et 90°.")]
         public double? ToitureInclinaison { get; set; }
+
+        [Required(ErrorMessage = "Veuillez entrer la longueur.")]
+        [Range(0.1, 1000, ErrorMessage = "La longueur doit être supérieure à 0.")]
+        public double? Longueur { get; set; }
+
+        [Required(ErrorMessage = "Veuillez entrer la largeur.")]
+        [Range(0.1, 1000, ErrorMessage = "La largeur doit être supérieure à 0.")]
+        public double? Largeur { get; set; }
+
+        // Calculé automatiquement
+        public double? Surface => Longueur.HasValue && Largeur.HasValue
+            ? Longueur.Value * Largeur.Value
+            : null;
     }
 }
 
