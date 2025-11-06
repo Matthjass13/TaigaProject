@@ -1,0 +1,159 @@
+﻿@model MVC.Models.PrivateInstallationVm
+
+@{
+    ViewBag.Title = "Saisie de mon installation privée";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+<div class="container py-4" style="max-width: 1000px;">
+    <!-- 🧭 Fil d'Ariane -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Installation privée
+            </li>
+        </ol>
+    </nav>
+
+    <!-- 🌞 Titre principal -->
+    <h1 class="fw-bold mb-4">Saisie de mon installation privée</h1>
+
+    <div class="row">
+        <!-- 🧱 Colonne gauche : menu étapes -->
+        <div class="col-3">
+            <div class="list-group">
+                <a asp-action="PrivateInstallation" asp-route-step="1"
+                   class="list-group-item list-group-item-action @(Model.Step == 1 ? "active" : "")">
+                    Localisation
+                </a>
+                <a asp-action="PrivateInstallation" asp-route-step="2"
+                   class="list-group-item list-group-item-action @(Model.Step == 2 ? "active" : "")">
+                    Type d'installation
+                </a>
+                <a asp-action="PrivateInstallation" asp-route-step="3"
+                   class="list-group-item list-group-item-action @(Model.Step == 3 ? "active" : "")">
+                    Orientation
+                </a>
+                <a asp-action="PrivateInstallation" asp-route-step="4"
+                   class="list-group-item list-group-item-action @(Model.Step == 4 ? "active" : "")">
+                    Surface
+                </a>
+            </div>
+        </div>
+
+        <!-- 🎯 Colonne droite : contenu principal -->
+        <div class="col-9">
+            <div class="card shadow-sm" style="border-radius: 16px;">
+                <div class="card-body" style="min-height: 220px;">
+
+                    @* Étape 1 *@
+                    @if (Model.Step == 1)
+                    {
+                        <h2 class="h5 mb-3">Localisation</h2>
+                        <p class="text-muted">Entrez la localisation de votre installation (adresse, code postal, etc.).</p>
+                    }
+                    @* Étape 2 *@
+                    else if (Model.Step == 2)
+                    {
+                        <h2 class="h5 mb-3">Type d'installation</h2>
+                        <p class="text-muted">Sélectionnez le type d’installation (toiture, façade, etc.).</p>
+                    }
+                    @* Étape 3 : Orientation *@
+                    else if (Model.Step == 3)
+                    {
+                        <h2 class="h5 mb-3">Orientation</h2>
+
+                        <form asp-action="PrivateInstallation" method="post" novalidate>
+                            <input type="hidden" asp-for="Step" value="3" />
+
+                            <div class="mb-3">
+                                <label asp-for="OrientationAzimut" class="form-label">
+                                    Orientation du champ (azimut) [°]
+                                </label>
+                                <input asp-for="OrientationAzimut" class="form-control" type="number" min="0" max="360" step="0.1" />
+                                <span asp-validation-for="OrientationAzimut" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="ToitureInclinaison" class="form-label">
+                                    Inclinaison de la toiture [°]
+                                </label>
+                                <input asp-for="ToitureInclinaison" class="form-control" type="number" min="0" max="90" step="0.1" />
+                                <span asp-validation-for="ToitureInclinaison" class="text-danger"></span>
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-3">
+                                <a asp-action="PrivateInstallation"
+                                   asp-route-step="2"
+                                   class="btn btn-outline-secondary">
+                                    ← Précédent
+                                </a>
+
+                                <button type="submit" class="btn btn-primary">
+                                    Suivant →
+                                </button>
+                            </div>
+                        </form>
+                    }
+                    @* Étape 4 : Surface + bouton Save *@
+                    else if (Model.Step == 4)
+                    {
+                        <h2 class="h5 mb-3">Surface</h2>
+
+                        <div class="mb-3">
+                            <p>Longueur [m] :</p>
+                            <p>Largeur [m] :</p>
+                            <p>Surface [m2] :</p>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-3">
+                            <a asp-action="PrivateInstallation"
+                               asp-route-step="3"
+                               class="btn btn-outline-secondary">
+                                ← Précédent
+                            </a>
+
+                            <form asp-action="PrivateInstallation" method="post" class="mb-0">
+                                <!-- IMPORTANT : on met Step à 4 "à la main" -->
+                                <input type="hidden" name="Step" value="4" />
+
+                                <button type="submit" class="btn btn-success">
+                                    💾 Enregistrer
+                                </button>
+                            </form>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+            <!-- 🧭 Flèches de navigation générales (uniquement pour étapes 1 et 2) -->
+            @if (Model.Step == 1 || Model.Step == 2)
+            {
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <a asp-action="PrivateInstallation"
+                       asp-route-step="@(Model.Step - 1)"
+                       class="btn btn-outline-secondary @(Model.Step == 1 ? "disabled" : "")">
+                        ← Précédent
+                    </a>
+
+                    <span class="text-muted">Étape @Model.Step / 4</span>
+
+                    <a asp-action="PrivateInstallation"
+                       asp-route-step="@(Model.Step + 1)"
+                       class="btn btn-outline-secondary">
+                        Suivant →
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
