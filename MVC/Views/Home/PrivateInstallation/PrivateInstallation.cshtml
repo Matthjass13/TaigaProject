@@ -55,12 +55,147 @@
                     {
                         <h2 class="h5 mb-3">Localisation</h2>
                         <p class="text-muted">Entrez la localisation de votre installation (adresse, code postal, etc.).</p>
+
+                        <form asp-action="PrivateInstallation" method="post" novalidate>
+                            <input type="hidden" asp-for="Step" value="1" />
+
+                            <div class="row">
+                                <div class="col-md-8 mb-3">
+                                    <label asp-for="Rue" class="form-label">
+                                        Rue
+                                    </label>
+                                    <input asp-for="Rue" class="form-control" type="text"/>
+                                    <span asp-validation-for="Rue" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label asp-for="No" class="form-label">
+                                        No
+                                    </label>
+                                    <input asp-for="No" class="form-control" type="number" min="1" max="1000" step="1" />
+                                    <span asp-validation-for="No" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label asp-for="NPA" class="form-label">
+                                        NPA
+                                    </label>
+                                    <input asp-for="NPA" class="form-control" type="number" min="1000" max="9999" step="1" />
+                                    <span asp-validation-for="NPA" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <label asp-for="Localite" class="form-label">
+                                        Localité
+                                    </label>
+                                    <input asp-for="Localite" class="form-control" type="text" />
+                                    <span asp-validation-for="Localite" class="text-danger"></span>
+                                </div>
+                            </div>
+                            
+
+                            <div class="d-flex justify-content-between mt-3">
+                                <a asp-action="PrivateInstallation"
+                                   asp-route-step="1"
+                                   class="btn btn-outline-secondary">
+                                    ← Précédent
+                                </a>
+
+                                <button type="submit" class="btn btn-primary">
+                                    Suivant →
+                                </button>
+                            </div>
+                        </form>
+                
+                    
                     }
                     @* Étape 2 *@
                     else if (Model.Step == 2)
                     {
-                        <h2 class="h5 mb-3">Type d'installation</h2>
-                        <p class="text-muted">Sélectionnez le type d’installation (toiture, façade, etc.).</p>
+                        <p class="text-muted">Sélectionnez le type d'installation (toiture, façade, etc.).</p>
+
+                        <form asp-action="PrivateInstallation" method="post">
+                            <input type="hidden" asp-for="Step" value="2" />
+
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Énergie renouvelable :</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="SelectedEnergyType" value="Éolien" id="energyEolien"
+                                    @(Model.SelectedEnergyType == "Éolien" ? "checked" : "")
+                                           onchange="toggleSolarCellTypes()">
+                                    <label class="form-check-label" for="energyEolien">
+                                        Éolien
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="SelectedEnergyType" value="Photovoltaïque" id="energyPhoto"
+                                    @(Model.SelectedEnergyType == "Photovoltaïque" ? "checked" : "")
+                                           onchange="toggleSolarCellTypes()">
+                                    <label class="form-check-label" for="energyPhoto">
+                                        Photovoltaïque
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="SelectedEnergyType" value="Bio-gaz" id="energyBiogaz"
+                                    @(Model.SelectedEnergyType == "Bio-gaz" ? "checked" : "")
+                                           onchange="toggleSolarCellTypes()">
+                                    <label class="form-check-label" for="energyBiogaz">
+                                        Bio-gaz
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="SelectedEnergyType" value="Mini-hydraulique" id="energyHydraulique"
+                                    @(Model.SelectedEnergyType == "Mini-hydraulique" ? "checked" : "")
+                                           onchange="toggleSolarCellTypes()">
+                                    <label class="form-check-label" for="energyHydraulique">
+                                        Mini-hydraulique
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Type d'intégration :</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="SelectedIntegrationType" value="Ajoutée" id="integrationAjoutee">
+                                    <label class="form-check-label" for="integrationAjoutee">
+                                        Ajoutée
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="SelectedIntegrationType" value="Intégrée" id="integrationIntegree">
+                                    <label class="form-check-label" for="integrationIntegree">
+                                        Intégrée
+                                    </label>
+                                </div>
+                            </div>
+
+                            @* Section type de cellule solaire - visible uniquement si Photovoltaïque sélectionné *@
+                            <div id="solarCellSection" style="display: @(Model.SelectedEnergyType == "Photovoltaïque" ? "block" : "none");">
+                                <label class="form-label fw-bold">Type de cellules PV :</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="SelectedSolarCellType" value="Polychristallin" id="cellPoly"
+                                    @(Model.SelectedSolarCellType == "Polychristallin" ? "checked" : "")>
+                                    <label class="form-check-label" for="cellPoly">
+                                        Polychristallin
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="SelectedSolarCellType" value="Monochristallin" id="cellMono"
+                                    @(Model.SelectedSolarCellType == "Monochristallin" ? "checked" : "")>
+                                    <label class="form-check-label" for="cellMono">
+                                        Monochristallin
+                                    </label>
+                                </div>
+                            </div>
+
+                            <script>
+                                function toggleSolarCellTypes() {
+                                    var photoRadio = document.getElementById('energyPhoto');
+                                    var solarSection = document.getElementById('solarCellSection');
+                                    solarSection.style.display = photoRadio.checked ? 'block' : 'none';
+                                }
+                            </script>
+                        </form>
                     }
                     @* Étape 3 : Orientation *@
                     else if (Model.Step == 3)
@@ -104,28 +239,57 @@
                     {
                         <h2 class="h5 mb-3">Surface</h2>
 
-                        <div class="mb-3">
-                            <p>Longueur [m] :</p>
-                            <p>Largeur [m] :</p>
-                            <p>Surface [m2] :</p>
-                        </div>
+                        <form asp-action="PrivateInstallation" method="post">
+                            <input type="hidden" asp-for="Step" value="4" />
+                            <input type="hidden" asp-for="SelectedEnergyType" />
+                            <input type="hidden" asp-for="SelectedSolarCellType" />
+                            <input type="hidden" asp-for="OrientationAzimut" />
+                            <input type="hidden" asp-for="ToitureInclinaison" />
 
-                        <div class="d-flex justify-content-between mt-3">
-                            <a asp-action="PrivateInstallation"
-                               asp-route-step="3"
-                               class="btn btn-outline-secondary">
-                                ← Précédent
-                            </a>
+                            <div class="mb-3">
+                                <label asp-for="Longueur" class="form-label">Longueur [m] :</label>
+                                <input asp-for="Longueur" class="form-control" type="number" min="0.1" step="0.1" oninput="calculateSurface()" />
+                                <span asp-validation-for="Longueur" class="text-danger"></span>
+                            </div>
 
-                            <form asp-action="PrivateInstallation" method="post" class="mb-0">
-                                <!-- IMPORTANT : on met Step à 4 "à la main" -->
-                                <input type="hidden" name="Step" value="4" />
+                            <div class="mb-3">
+                                <label asp-for="Largeur" class="form-label">Largeur [m] :</label>
+                                <input asp-for="Largeur" class="form-control" type="number" min="0.1" step="0.1" oninput="calculateSurface()" />
+                                <span asp-validation-for="Largeur" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Surface [m2] :</label>
+                                <input type="text" class="form-control" id="surfaceInput" value="@(Model.Surface?.ToString("F2") ?? "")" readonly />
+                            </div>
+
+                            <script>
+                                function calculateSurface() {
+                                    var longueur = parseFloat(document.getElementById('Longueur').value);
+                                    var largeur = parseFloat(document.getElementById('Largeur').value);
+                                    var surfaceField = document.getElementById('surfaceInput');
+
+                                    if (!isNaN(longueur) && !isNaN(largeur) && longueur > 0 && largeur > 0) {
+                                        var surface = longueur * largeur;
+                                        surfaceField.value = surface.toFixed(2);
+                                    } else {
+                                        surfaceField.value = '';
+                                    }
+                                }
+                            </script>
+
+                            <div class="d-flex justify-content-between mt-3">
+                                <a asp-action="PrivateInstallation"
+                                   asp-route-step="3"
+                                   class="btn btn-outline-secondary">
+                                    ← Précédent
+                                </a>
 
                                 <button type="submit" class="btn btn-success">
                                     💾 Enregistrer
                                 </button>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     }
 
                 </div>

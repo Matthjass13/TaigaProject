@@ -11,3 +11,16 @@ C:\lifecycle2\ClassLibrary\obj\Debug\net8.0\ClassLibrary.dll
 C:\lifecycle2\ClassLibrary\obj\Debug\net8.0\refint\ClassLibrary.dll
 C:\lifecycle2\ClassLibrary\obj\Debug\net8.0\ClassLibrary.pdb
 C:\lifecycle2\ClassLibrary\obj\Debug\net8.0\ref\ClassLibrary.dll
+C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\bin\Debug\net8.0\ClassLibrary.deps.json
+C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\bin\Debug\net8.0\ClassLibrary.dll
+C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\bin\Debug\net8.0\ClassLibrary.pdb
+C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\obj\Debug\net8.0\ClassLibrary.csproj.AssemblyReference.cache
+C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\obj\Debug\net8.0\ClassLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\obj\Debug\net8.0\ClassLibrary.AssemblyInfoInputs.cache
+C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\obj\Debug\net8.0\ClassLibrary.AssemblyInfo.cs
+C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\obj\Debug\net8.0\ClassLibrary.csproj.CoreCompileInputs.cache
+C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\obj\Debug\net8.0\ClassLibrary.sourcelink.json
+C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\obj\Debug\net8.0\ClassLibrary.dll
+C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\obj\Debug\net8.0\refint\ClassLibrary.dll
+C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\obj\Debug\net8.0\ClassLibrary.pdb
+C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\obj\Debug\net8.0\ref\ClassLibrary.dll

@@ -139,6 +139,11 @@ namespace MVC.Controllers
             return View("~/Views/Home/NER/Biogaz/Biogaz.cshtml");
         }
 
+        public IActionResult PrivateInstallation()
+        {
+            return View("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml");
+        }
+
         private (List<string> labels, List<double> values, int year) BuildProductionBrutePie()
         {
             // Dernière année disponible
