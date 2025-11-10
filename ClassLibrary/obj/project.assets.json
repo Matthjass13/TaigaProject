@@ -582,23 +582,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pytho\\.nuget\\packages\\": {},
+    "C:\\Users\\perei\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pytho\\Desktop\\HEG INFORMATIQUE\\3ème année\\1er semestre\\Integration_DevelopmentLifecycle\\Project_SaraMatthiasNathan\\2025UAS06F\\ClassLibrary\\ClassLibrary.csproj",
+      "projectUniqueName": "C:\\lifecycle2\\ClassLibrary\\ClassLibrary.csproj",
       "projectName": "ClassLibrary",
-      "projectPath": "C:\\Users\\pytho\\Desktop\\HEG INFORMATIQUE\\3ème année\\1er semestre\\Integration_DevelopmentLifecycle\\Project_SaraMatthiasNathan\\2025UAS06F\\ClassLibrary\\ClassLibrary.csproj",
-      "packagesPath": "C:\\Users\\pytho\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pytho\\Desktop\\HEG INFORMATIQUE\\3ème année\\1er semestre\\Integration_DevelopmentLifecycle\\Project_SaraMatthiasNathan\\2025UAS06F\\ClassLibrary\\obj\\",
+      "projectPath": "C:\\lifecycle2\\ClassLibrary\\ClassLibrary.csproj",
+      "packagesPath": "C:\\Users\\perei\\.nuget\\packages\\",
+      "outputPath": "C:\\lifecycle2\\ClassLibrary\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\pytho\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\perei\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
