@@ -3,6 +3,8 @@ using MVC.Models;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using ClassLibrary.DataAccessLayer;
+using System.Text.Json;
+using Microsoft.AspNetCore.Http;
 using ClassLibrary.Models;
 
 namespace MVC.Controllers
@@ -30,6 +32,24 @@ namespace MVC.Controllers
             return View(vm);
         }
 
+        private const string InstallationSessionKey = "PrivateInstallationVm";
+
+        private PrivateInstallationVm LoadInstallationFromSession()
+        {
+            var json = HttpContext.Session.GetString(InstallationSessionKey);
+            if (string.IsNullOrEmpty(json))
+                return new PrivateInstallationVm();
+
+            return JsonSerializer.Deserialize<PrivateInstallationVm>(json) ?? new PrivateInstallationVm();
+        }
+
+        private void SaveInstallationToSession(PrivateInstallationVm vm)
+        {
+            var json = JsonSerializer.Serialize(vm);
+            HttpContext.Session.SetString(InstallationSessionKey, json);
+        }
+
+
         // GET
         [HttpGet]
         public IActionResult PrivateInstallation(int step = 1)
@@ -37,51 +57,158 @@ namespace MVC.Controllers
             if (step < 1) step = 1;
             if (step > 4) step = 4;
 
-            var vm = new PrivateInstallationVm
-            {
-                Step = step
-            };
+            var vm = LoadInstallationFromSession();
+            vm.Step = step;
 
             return View("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml", vm);
         }
 
-        // POST (quand on valide une étape)
         [HttpPost]
-        public IActionResult PrivateInstallation(PrivateInstallationVm vm)
+        public IActionResult PrivateInstallation(PrivateInstallationVm vm, string? action)
+
         {
-            // Étape 3 : validation orientation
-            if (vm.Step == 3 && !ModelState.IsValid)
+            // On récupère ce qu'on avait déjà en session
+            var stored = LoadInstallationFromSession() ?? new PrivateInstallationVm();
+
+            switch (vm.Step)
             {
-                return View("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml", vm);
+                // ÉTAPE 1 : Localisation
+                case 1:
+                    stored.Rue = vm.Rue;
+                    stored.No = vm.No;
+                    stored.NPA = vm.NPA;
+                    stored.Localite = vm.Localite;
+                    stored.Step = 1;
+
+                    ModelState.Clear();
+                    if (string.IsNullOrWhiteSpace(stored.Rue))
+                        ModelState.AddModelError(nameof(vm.Rue), "Veuillez entrer la rue.");
+                    if (!stored.No.HasValue || stored.No <= 0)
+                        ModelState.AddModelError(nameof(vm.No), "Le numéro de rue doit être supérieur à 0.");
+                    if (!stored.NPA.HasValue || stored.NPA < 1000 || stored.NPA > 9999)
+                        ModelState.AddModelError(nameof(vm.NPA), "Le NPA suisse doit avoir 4 chiffres.");
+                    if (string.IsNullOrWhiteSpace(stored.Localite))
+                        ModelState.AddModelError(nameof(vm.Localite), "Veuillez entrer la localité.");
+
+                    if (!ModelState.IsValid)
+                        return View("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml", stored);
+
+                    stored.Step = 2; // on passe à l'étape 2
+                    break;
+
+                // ÉTAPE 2 : Type d'installation
+                case 2:
+                    stored.SelectedEnergyType = vm.SelectedEnergyType;
+                    stored.SelectedIntegrationType = vm.SelectedIntegrationType;
+                    stored.SelectedSolarCellType = vm.SelectedSolarCellType;
+                    stored.Step = 3;  // on va à l'étape 3
+                    break;
+
+                // ÉTAPE 3 : Orientation
+                case 3:
+                    // on sauvegarde les valeurs dans l'objet en session
+                    stored.OrientationAzimut = vm.OrientationAzimut;
+                    stored.ToitureInclinaison = vm.ToitureInclinaison;
+                    stored.Step = 3;
+
+                    // validation *uniquement* pour ces deux champs
+                    ModelState.Clear();
+                    if (!stored.OrientationAzimut.HasValue ||
+                        stored.OrientationAzimut < 0 || stored.OrientationAzimut > 360)
+                    {
+                        ModelState.AddModelError(nameof(vm.OrientationAzimut),
+                            "L'orientation doit être entre 0° et 360°.");
+                    }
+
+                    if (!stored.ToitureInclinaison.HasValue ||
+                        stored.ToitureInclinaison < 0 || stored.ToitureInclinaison > 90)
+                    {
+                        ModelState.AddModelError(nameof(vm.ToitureInclinaison),
+                            "L'inclinaison doit être entre 0° et 90°.");
+                    }
+
+                    if (!ModelState.IsValid)
+                    {
+                        // on reste à l'étape 3 avec les valeurs saisies
+                        return View("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml", stored);
+                    }
+
+                    stored.Step = 4; // on passe à l'étape 4
+                    break;
+
+                case 4:
+                    // on récupère les valeurs saisies
+                    stored.Longueur = vm.Longueur;
+                    stored.Largeur = vm.Largeur;
+                    stored.Step = 4;
+
+                    // validation
+                    ModelState.Clear();
+                    if (!stored.Longueur.HasValue || stored.Longueur <= 0)
+                        ModelState.AddModelError(nameof(vm.Longueur), "La longueur doit être supérieure à 0.");
+                    if (!stored.Largeur.HasValue || stored.Largeur <= 0)
+                        ModelState.AddModelError(nameof(vm.Largeur), "La largeur doit être supérieure à 0.");
+
+                    if (!ModelState.IsValid)
+                    {
+                        // on reste à l'étape 4 avec les erreurs et les valeurs
+                        return View("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml", stored);
+                    }
+
+                    // si on a cliqué sur "Précédent"
+                    if (action == "previous")
+                    {
+                        stored.Step = 3;           // on revient à l'étape 3
+                        break;                     // on sort du switch, puis on affiche la vue avec stored
+                    }
+
+                    // sinon, c'est le bouton "save" on enregistre en DB
+                    var surface = stored.Longueur.Value * stored.Largeur.Value;
+
+                    var entity = new Installation
+                    {
+                        Rue = stored.Rue ?? "",
+                        No = stored.No ?? 0,
+                        Npa = stored.NPA ?? 0,
+                        Localite = stored.Localite ?? "",
+
+                        SelectedEnergyType = stored.SelectedEnergyType,
+                        SelectedSolarCellType = stored.SelectedSolarCellType,
+                        SelectedIntegrationType = stored.SelectedIntegrationType,
+
+                        OrientationAzimut = stored.OrientationAzimut ?? 0,
+                        ToitureInclinaison = stored.ToitureInclinaison ?? 0,
+
+                        Longueur = stored.Longueur.Value,
+                        Largeur = stored.Largeur.Value,
+                        Surface = surface
+                    };
+
+                    _ctx.Installations.Add(entity);
+                    _ctx.SaveChanges();
+
+                    TempData["RegistrationNumber"] = entity.NoRegistration;
+                    HttpContext.Session.Remove(InstallationSessionKey);
+
+                    return RedirectToAction("PrivateInstallationConfirmation");
+
             }
 
-            // Étape 4 : clic sur le bouton "Save"
-            if (vm.Step == 4)
-            {
-                // Ici tu pourrais sauvegarder en DB plus tard
-
-                // On simule un numéro d'enregistrement
-                var registrationNumber = "9999999";
-                TempData["RegistrationNumber"] = registrationNumber;
-
-                return RedirectToAction("PrivateInstallationConfirmation");
-            }
-
-            // Étapes 1 -> 2 -> 3 : on avance simplement
-            vm.Step = Math.Min(vm.Step + 1, 4);
+            // on sauvegarde l'état courant en session et on affiche l'étape suivante
+            SaveInstallationToSession(stored);
             ModelState.Clear();
-
-            return View("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml", vm);
+            return View("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml", stored);
         }
+
+
 
         // Page de confirmation
         public IActionResult PrivateInstallationConfirmation()
         {
-            var reg = TempData["RegistrationNumber"]?.ToString() ?? "9999999";
-            ViewBag.RegistrationNumber = reg;
-
+            ViewBag.RegistrationNumber = TempData["RegistrationNumber"];
             return View("~/Views/Home/PrivateInstallation/PrivateInstallationConfirmation.cshtml");
         }
+
 
 
 
@@ -139,10 +266,6 @@ namespace MVC.Controllers
             return View("~/Views/Home/NER/Biogaz/Biogaz.cshtml");
         }
 
-        public IActionResult PrivateInstallation()
-        {
-            return View("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml");
-        }
 
         private (List<string> labels, List<double> values, int year) BuildProductionBrutePie()
         {
