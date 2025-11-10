@@ -7,6 +7,7 @@ namespace MVC.Models
         public int Step { get; set; } = 1;
         public string? SelectedEnergyType { get; set; }
         public string? SelectedSolarCellType { get; set; }
+        public string? SelectedIntegrationType { get; set; }
 
         [Required(ErrorMessage = "Veuillez entrer l'orientation du toit.")]
         [Range(0, 360, ErrorMessage = "L'orientation doit être entre 0° et 360°.")]

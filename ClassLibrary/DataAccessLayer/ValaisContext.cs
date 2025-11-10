@@ -10,8 +10,8 @@ namespace ClassLibrary.DataAccessLayer
         public DbSet<Yearly> Yearly => Set<Yearly>();
         public DbSet<EnergyType> EnergyType => Set<EnergyType>();
         public DbSet<YearlyProduction> YearlyProduction => Set<YearlyProduction>();
-    
-        
+        public DbSet<Installation> Installations { get; set; }
+
     }
 }
 

@@ -17,77 +17,77 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MVC
 build_property.RootNamespace = MVC
-build_property.ProjectDir = C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject4\MVC\
+build_property.ProjectDir = C:\lifecycle2\MVC\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject4\MVC
+build_property.MSBuildProjectDirectory = C:\lifecycle2\MVC
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/Home/Index.cshtml]
+[C:/lifecycle2/MVC/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/Home/NER/Biogaz/Biogaz.cshtml]
+[C:/lifecycle2/MVC/Views/Home/NER/Biogaz/Biogaz.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxORVJcQmlvZ2F6XEJpb2dhei5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/Home/NER/Eolien/Eolien.cshtml]
+[C:/lifecycle2/MVC/Views/Home/NER/Eolien/Eolien.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxORVJcRW9saWVuXEVvbGllbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/Home/NER/Mini-hydraulique/MiniHydraulique.cshtml]
+[C:/lifecycle2/MVC/Views/Home/NER/Mini-hydraulique/MiniHydraulique.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxORVJcTWluaS1oeWRyYXVsaXF1ZVxNaW5pSHlkcmF1bGlxdWUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/Home/NER/NER.cshtml]
+[C:/lifecycle2/MVC/Views/Home/NER/NER.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxORVJcTkVSLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/Home/NER/PV/PV.cshtml]
+[C:/lifecycle2/MVC/Views/Home/NER/PV/PV.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxORVJcUFZcUFYuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/Home/Privacy.cshtml]
+[C:/lifecycle2/MVC/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/Home/PrivateInstallation/PrivateInstallation.cshtml]
+[C:/lifecycle2/MVC/Views/Home/PrivateInstallation/PrivateInstallation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YXRlSW5zdGFsbGF0aW9uXFByaXZhdGVJbnN0YWxsYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/Home/PrivateInstallation/PrivateInstallationConfirmation.cshtml]
+[C:/lifecycle2/MVC/Views/Home/PrivateInstallation/PrivateInstallationConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YXRlSW5zdGFsbGF0aW9uXFByaXZhdGVJbnN0YWxsYXRpb25Db25maXJtYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/Shared/Error.cshtml]
+[C:/lifecycle2/MVC/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/Shared/_Menu.cshtml]
+[C:/lifecycle2/MVC/Views/Shared/_Menu.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9NZW51LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/Shared/_NERDiagramPartial.cshtml]
+[C:/lifecycle2/MVC/Views/Shared/_NERDiagramPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9ORVJEaWFncmFtUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/lifecycle2/MVC/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/_ViewImports.cshtml]
+[C:/lifecycle2/MVC/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/_ViewStart.cshtml]
+[C:/lifecycle2/MVC/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Prêt Maintenant/Desktop/HES/Semestre5/IntegrationAndDevCycle/IntegrationProject4/MVC/Views/Shared/_Layout.cshtml]
+[C:/lifecycle2/MVC/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-q0a04yuu0e
