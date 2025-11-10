@@ -4741,23 +4741,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pytho\\.nuget\\packages\\": {},
+    "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pytho\\Desktop\\HEG INFORMATIQUE\\3ème année\\1er semestre\\Integration_DevelopmentLifecycle\\Project_SaraMatthiasNathan\\2025UAS06F\\MVC\\MVC.csproj",
+      "projectUniqueName": "C:\\Users\\Prêt Maintenant\\Desktop\\HES\\Semestre5\\IntegrationAndDevCycle\\IntegrationProject4\\MVC\\MVC.csproj",
       "projectName": "MVC",
-      "projectPath": "C:\\Users\\pytho\\Desktop\\HEG INFORMATIQUE\\3ème année\\1er semestre\\Integration_DevelopmentLifecycle\\Project_SaraMatthiasNathan\\2025UAS06F\\MVC\\MVC.csproj",
-      "packagesPath": "C:\\Users\\pytho\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pytho\\Desktop\\HEG INFORMATIQUE\\3ème année\\1er semestre\\Integration_DevelopmentLifecycle\\Project_SaraMatthiasNathan\\2025UAS06F\\MVC\\obj\\",
+      "projectPath": "C:\\Users\\Prêt Maintenant\\Desktop\\HES\\Semestre5\\IntegrationAndDevCycle\\IntegrationProject4\\MVC\\MVC.csproj",
+      "packagesPath": "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Prêt Maintenant\\Desktop\\HES\\Semestre5\\IntegrationAndDevCycle\\IntegrationProject4\\MVC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\pytho\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Prêt Maintenant\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4772,8 +4772,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\pytho\\Desktop\\HEG INFORMATIQUE\\3ème année\\1er semestre\\Integration_DevelopmentLifecycle\\Project_SaraMatthiasNathan\\2025UAS06F\\ClassLibrary\\ClassLibrary.csproj": {
-              "projectPath": "C:\\Users\\pytho\\Desktop\\HEG INFORMATIQUE\\3ème année\\1er semestre\\Integration_DevelopmentLifecycle\\Project_SaraMatthiasNathan\\2025UAS06F\\ClassLibrary\\ClassLibrary.csproj"
+            "C:\\Users\\Prêt Maintenant\\Desktop\\HES\\Semestre5\\IntegrationAndDevCycle\\IntegrationProject4\\ClassLibrary\\ClassLibrary.csproj": {
+              "projectPath": "C:\\Users\\Prêt Maintenant\\Desktop\\HES\\Semestre5\\IntegrationAndDevCycle\\IntegrationProject4\\ClassLibrary\\ClassLibrary.csproj"
             }
           }
         }
@@ -4788,7 +4788,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -4828,7 +4828,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

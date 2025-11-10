@@ -24,3 +24,16 @@ C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_De
 C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\obj\Debug\net8.0\refint\ClassLibrary.dll
 C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\obj\Debug\net8.0\ClassLibrary.pdb
 C:\Users\pytho\Desktop\HEG INFORMATIQUE\3ème année\1er semestre\Integration_DevelopmentLifecycle\Project_SaraMatthiasNathan\2025UAS06F\ClassLibrary\obj\Debug\net8.0\ref\ClassLibrary.dll
+C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject4\ClassLibrary\bin\Debug\net8.0\ClassLibrary.deps.json
+C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject4\ClassLibrary\bin\Debug\net8.0\ClassLibrary.dll
+C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject4\ClassLibrary\bin\Debug\net8.0\ClassLibrary.pdb
+C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject4\ClassLibrary\obj\Debug\net8.0\ClassLibrary.csproj.AssemblyReference.cache
+C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject4\ClassLibrary\obj\Debug\net8.0\ClassLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject4\ClassLibrary\obj\Debug\net8.0\ClassLibrary.AssemblyInfoInputs.cache
+C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject4\ClassLibrary\obj\Debug\net8.0\ClassLibrary.AssemblyInfo.cs
+C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject4\ClassLibrary\obj\Debug\net8.0\ClassLibrary.csproj.CoreCompileInputs.cache
+C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject4\ClassLibrary\obj\Debug\net8.0\ClassLibrary.sourcelink.json
+C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject4\ClassLibrary\obj\Debug\net8.0\ClassLibrary.dll
+C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject4\ClassLibrary\obj\Debug\net8.0\refint\ClassLibrary.dll
+C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject4\ClassLibrary\obj\Debug\net8.0\ClassLibrary.pdb
+C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject4\ClassLibrary\obj\Debug\net8.0\ref\ClassLibrary.dll
