@@ -122,7 +122,8 @@
                                 <label class="form-label fw-bold">Énergie renouvelable :</label>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio"
-                                           asp-for="SelectedEnergyType" value="Éolien" id="energyEolien">
+                                           asp-for="SelectedEnergyType" value="Éolien" id="energyEolien"
+                                           onchange="toggleSolarCellTypes()">
                                     <label class="form-check-label" for="energyEolien">Éolien</label>
                                 </div>
                                 <div class="form-check">
@@ -133,12 +134,14 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio"
-                                           asp-for="SelectedEnergyType" value="Bio-gaz" id="energyBiogaz">
+                                           asp-for="SelectedEnergyType" value="Bio-gaz" id="energyBiogaz"
+                                           onchange="toggleSolarCellTypes()">
                                     <label class="form-check-label" for="energyBiogaz">Bio-gaz</label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio"
-                                           asp-for="SelectedEnergyType" value="Mini-hydraulique" id="energyHydraulique">
+                                           asp-for="SelectedEnergyType" value="Mini-hydraulique" id="energyHydraulique"
+                                           onchange="toggleSolarCellTypes()">
                                     <label class="form-check-label" for="energyHydraulique">Mini-hydraulique</label>
                                 </div>
                             </div>
