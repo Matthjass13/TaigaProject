@@ -1,23 +1,18 @@
-using Microsoft.EntityFrameworkCore;
-using ClassLibrary.DataAccessLayer;
-using System;
+using MVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<ValaisContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ValaisDB")));
-
-builder.Services.AddSession(options =>
+builder.Services.AddHttpClient<IValaisServices, ValaisServices>(client =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30);   // durée avant expiration
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
+    client.BaseAddress = new Uri(builder.Configuration["ServiceUrls:WebAPI"]);
 });
 
-var app = builder.Build();
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
 
+var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
@@ -27,11 +22,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseSession();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -39,4 +31,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
 
