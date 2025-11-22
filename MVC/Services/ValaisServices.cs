@@ -15,14 +15,14 @@ namespace MVC.Services
         // ---- CHART ----
         public async Task<ProductionChartVm> GetChartAsync()
         {
-            var result = await _client.GetFromJsonAsync<ProductionChartVm>("api/production/chart");
+            var result = await _client.GetFromJsonAsync<ProductionChartVm>("/api/Production/chart");
             return result ?? new ProductionChartVm();
         }
 
         // ---- PIE ----
         public async Task<(List<string>, List<double>, int)> GetPieAsync()
         {
-            var dto = await _client.GetFromJsonAsync<ProductionPieDto>("api/production/pie");
+            var dto = await _client.GetFromJsonAsync<ProductionPieDto>("/api/Production/pie");
 
             if (dto == null)
                 return (new(), new(), 0);
@@ -48,7 +48,7 @@ namespace MVC.Services
                 Largeur = vm.Largeur
             };
 
-            var response = await _client.PostAsJsonAsync("api/production/installations", payload);
+            var response = await _client.PostAsJsonAsync("/api/Production/installations", payload);
 
             return await response.Content.ReadFromJsonAsync<int>();
         }
