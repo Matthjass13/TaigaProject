@@ -1,21 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "yf1uZhug+OY=",
+  "dgSpecHash": "ia0yIRZS6Wo=",
   "success": true,
-  "projectFilePath": "C:\\lifecycle2\\ClassLibrary\\ClassLibrary.csproj",
+  "projectFilePath": "C:\\Users\\Prêt Maintenant\\Desktop\\HES\\Semestre5\\IntegrationAndDevCycle\\IntegrationProject6\\ClassLibrary\\ClassLibrary.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\perei\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.11\\microsoft.entityframeworkcore.9.0.11.nupkg.sha512",
-    "C:\\Users\\perei\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.11\\microsoft.entityframeworkcore.abstractions.9.0.11.nupkg.sha512",
-    "C:\\Users\\perei\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\9.0.11\\microsoft.entityframeworkcore.analyzers.9.0.11.nupkg.sha512",
-    "C:\\Users\\perei\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\9.0.11\\microsoft.extensions.caching.abstractions.9.0.11.nupkg.sha512",
-    "C:\\Users\\perei\\.nuget\\packages\\microsoft.extensions.caching.memory\\9.0.11\\microsoft.extensions.caching.memory.9.0.11.nupkg.sha512",
-    "C:\\Users\\perei\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.11\\microsoft.extensions.dependencyinjection.9.0.11.nupkg.sha512",
-    "C:\\Users\\perei\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.11\\microsoft.extensions.dependencyinjection.abstractions.9.0.11.nupkg.sha512",
-    "C:\\Users\\perei\\.nuget\\packages\\microsoft.extensions.logging\\9.0.11\\microsoft.extensions.logging.9.0.11.nupkg.sha512",
-    "C:\\Users\\perei\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\9.0.11\\microsoft.extensions.logging.abstractions.9.0.11.nupkg.sha512",
-    "C:\\Users\\perei\\.nuget\\packages\\microsoft.extensions.options\\9.0.11\\microsoft.extensions.options.9.0.11.nupkg.sha512",
-    "C:\\Users\\perei\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.11\\microsoft.extensions.primitives.9.0.11.nupkg.sha512",
-    "C:\\Users\\perei\\.nuget\\packages\\system.diagnostics.diagnosticsource\\9.0.11\\system.diagnostics.diagnosticsource.9.0.11.nupkg.sha512"
+    "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.11\\microsoft.entityframeworkcore.9.0.11.nupkg.sha512",
+    "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.11\\microsoft.entityframeworkcore.abstractions.9.0.11.nupkg.sha512",
+    "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\9.0.11\\microsoft.entityframeworkcore.analyzers.9.0.11.nupkg.sha512",
+    "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\9.0.11\\microsoft.extensions.caching.abstractions.9.0.11.nupkg.sha512",
+    "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\microsoft.extensions.caching.memory\\9.0.11\\microsoft.extensions.caching.memory.9.0.11.nupkg.sha512",
+    "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.11\\microsoft.extensions.dependencyinjection.9.0.11.nupkg.sha512",
+    "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.11\\microsoft.extensions.dependencyinjection.abstractions.9.0.11.nupkg.sha512",
+    "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\microsoft.extensions.logging\\9.0.11\\microsoft.extensions.logging.9.0.11.nupkg.sha512",
+    "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\9.0.11\\microsoft.extensions.logging.abstractions.9.0.11.nupkg.sha512",
+    "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\microsoft.extensions.options\\9.0.11\\microsoft.extensions.options.9.0.11.nupkg.sha512",
+    "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.11\\microsoft.extensions.primitives.9.0.11.nupkg.sha512",
+    "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\system.diagnostics.diagnosticsource\\9.0.11\\system.diagnostics.diagnosticsource.9.0.11.nupkg.sha512"
   ],
   "logs": []
 }
