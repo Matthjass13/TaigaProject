@@ -1,0 +1,36 @@
+@model MVC.Models.ProductionChartVm
+@{
+    ViewData["Title"] = "Photovoltaïque";
+}
+<h2>Production photovoltaïque</h2>
+<div id="pvChartContainer" style="max-width:800px;margin-top:20px;">
+    <canvas id="pvChart"></canvas>
+</div>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const years = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Years));
+        const values = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.KWh));
+        const ctx = document.getElementById('pvChart');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: '@Model.Title',
+                    data: values,
+                    borderColor: '#0d6efd',
+                    backgroundColor: 'rgba(13,110,253,0.15)',
+                    tension: 0.25,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+}
