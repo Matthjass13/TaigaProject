@@ -4722,23 +4722,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\": {},
+    "C:\\Users\\perei\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Prêt Maintenant\\Desktop\\HES\\Semestre5\\IntegrationAndDevCycle\\IntegrationProject6\\MVC\\MVC.csproj",
+      "projectUniqueName": "C:\\lifecycle2\\MVC\\MVC.csproj",
       "projectName": "MVC",
-      "projectPath": "C:\\Users\\Prêt Maintenant\\Desktop\\HES\\Semestre5\\IntegrationAndDevCycle\\IntegrationProject6\\MVC\\MVC.csproj",
-      "packagesPath": "C:\\Users\\Prêt Maintenant\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Prêt Maintenant\\Desktop\\HES\\Semestre5\\IntegrationAndDevCycle\\IntegrationProject6\\MVC\\obj\\",
+      "projectPath": "C:\\lifecycle2\\MVC\\MVC.csproj",
+      "packagesPath": "C:\\Users\\perei\\.nuget\\packages\\",
+      "outputPath": "C:\\lifecycle2\\MVC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Prêt Maintenant\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\perei\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4765,7 +4765,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net8.0": {
@@ -4805,7 +4805,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
