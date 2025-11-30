@@ -17,14 +17,21 @@ namespace MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var vm = await _service.GetChartAsync();
+            var globalChart = await _service.GetChartAsync();
+            var pvChart = await _service.GetPvChartAsync();
             var pie = await _service.GetPieAsync();
 
             ViewBag.NerLabels = pie.Labels;
             ViewBag.NerValues = pie.Values;
             ViewBag.NerYear = pie.Year;
 
-            return View(vm);
+            var homeVm = new HomeDashboardVm
+            {
+                GlobalChart = globalChart,
+                PvChart = pvChart
+            };
+
+            return View(homeVm);
         }
 
         private void SaveInstallationToSession(PrivateInstallationVm vm)
@@ -70,11 +77,11 @@ namespace MVC.Controllers
                     if (string.IsNullOrWhiteSpace(stored.Rue))
                         ModelState.AddModelError(nameof(vm.Rue), "Veuillez entrer la rue.");
                     if (!stored.No.HasValue || stored.No <= 0)
-                        ModelState.AddModelError(nameof(vm.No), "Le numéro de rue doit être supérieur à 0.");
+                        ModelState.AddModelError(nameof(vm.No), "Le numï¿½ro de rue doit ï¿½tre supï¿½rieur ï¿½ 0.");
                     if (!stored.NPA.HasValue || stored.NPA < 1000 || stored.NPA > 9999)
                         ModelState.AddModelError(nameof(vm.NPA), "Le NPA suisse doit avoir 4 chiffres.");
                     if (string.IsNullOrWhiteSpace(stored.Localite))
-                        ModelState.AddModelError(nameof(vm.Localite), "Veuillez entrer la localité.");
+                        ModelState.AddModelError(nameof(vm.Localite), "Veuillez entrer la localitï¿½.");
 
                     if (!ModelState.IsValid)
                         return View("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml", stored);
@@ -100,12 +107,12 @@ namespace MVC.Controllers
                     if (!stored.OrientationAzimut.HasValue ||
                         stored.OrientationAzimut < 0 || stored.OrientationAzimut > 360)
                         ModelState.AddModelError(nameof(vm.OrientationAzimut),
-                            "L'orientation doit être entre 0° et 360°.");
+                            "L'orientation doit ï¿½tre entre 0ï¿½ et 360ï¿½.");
 
                     if (!stored.ToitureInclinaison.HasValue ||
                         stored.ToitureInclinaison < 0 || stored.ToitureInclinaison > 90)
                         ModelState.AddModelError(nameof(vm.ToitureInclinaison),
-                            "L'inclinaison doit être entre 0° et 90°.");
+                            "L'inclinaison doit ï¿½tre entre 0ï¿½ et 90ï¿½.");
 
                     if (!ModelState.IsValid)
                         return View("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml", stored);
@@ -121,9 +128,9 @@ namespace MVC.Controllers
                     ModelState.Clear();
 
                     if (!stored.Longueur.HasValue || stored.Longueur <= 0)
-                        ModelState.AddModelError(nameof(vm.Longueur), "La longueur doit être supérieure à 0.");
+                        ModelState.AddModelError(nameof(vm.Longueur), "La longueur doit ï¿½tre supï¿½rieure ï¿½ 0.");
                     if (!stored.Largeur.HasValue || stored.Largeur <= 0)
-                        ModelState.AddModelError(nameof(vm.Largeur), "La largeur doit être supérieure à 0.");
+                        ModelState.AddModelError(nameof(vm.Largeur), "La largeur doit ï¿½tre supï¿½rieure ï¿½ 0.");
 
                     if (!ModelState.IsValid)
                         return View("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml", stored);
@@ -158,7 +165,13 @@ namespace MVC.Controllers
         }
 
         public IActionResult NER() => View("~/Views/Home/NER/NER.cshtml");
-        public IActionResult PV() => View("~/Views/Home/NER/PV/PV.cshtml");
+        
+        public async Task<IActionResult> PV()
+        {
+            var pvChart = await _service.GetPvChartAsync();
+            return View("~/Views/Pv/Index.cshtml", pvChart);
+        }
+        
         public IActionResult MiniHydraulique() => View("~/Views/Home/NER/Mini-hydraulique/MiniHydraulique.cshtml");
         public IActionResult Eolien() => View("~/Views/Home/NER/Eolien/Eolien.cshtml");
         public IActionResult Biogaz() => View("~/Views/Home/NER/Biogaz/Biogaz.cshtml");

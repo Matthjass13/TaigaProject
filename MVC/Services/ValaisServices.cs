@@ -19,6 +19,13 @@ namespace MVC.Services
             return result ?? new ProductionChartVm();
         }
 
+        // ---- PV CHART ----
+        public async Task<ProductionChartVm> GetPvChartAsync()
+        {
+            var result = await _client.GetFromJsonAsync<ProductionChartVm>("/api/Production/pv");
+            return result ?? new ProductionChartVm { Title = "Production PV [kWh]" };
+        }
+
         // ---- PIE ----
         public async Task<(List<string>, List<double>, int)> GetPieAsync()
         {
@@ -35,20 +42,21 @@ namespace MVC.Services
         {
             var payload = new PrivateInstallationDto
             {
-                Rue = vm.Rue,
-                No = vm.No,
-                NPA = vm.NPA,
-                Localite = vm.Localite,
+                Rue = vm.Rue ?? "",
+                No = vm.No ?? 0,
+                Npa = vm.NPA ?? 0,
+                Localite = vm.Localite ?? "",
                 SelectedEnergyType = vm.SelectedEnergyType,
                 SelectedSolarCellType = vm.SelectedSolarCellType,
                 SelectedIntegrationType = vm.SelectedIntegrationType,
-                OrientationAzimut = vm.OrientationAzimut,
-                ToitureInclinaison = vm.ToitureInclinaison,
-                Longueur = vm.Longueur,
-                Largeur = vm.Largeur
+                OrientationAzimut = vm.OrientationAzimut ?? 0,
+                ToitureInclinaison = vm.ToitureInclinaison ?? 0,
+                Longueur = vm.Longueur ?? 0,
+                Largeur = vm.Largeur ?? 0
             };
 
             var response = await _client.PostAsJsonAsync("/api/Production/installations", payload);
+            response.EnsureSuccessStatusCode();
 
             return await response.Content.ReadFromJsonAsync<int>();
         }
@@ -64,17 +72,17 @@ namespace MVC.Services
 
     public class PrivateInstallationDto
     {
-        public string? Rue { get; set; }
-        public int? No { get; set; }
-        public int? NPA { get; set; }
-        public string? Localite { get; set; }
+        public string Rue { get; set; } = "";
+        public int No { get; set; }
+        public int Npa { get; set; }
+        public string Localite { get; set; } = "";
         public string? SelectedEnergyType { get; set; }
         public string? SelectedSolarCellType { get; set; }
         public string? SelectedIntegrationType { get; set; }
-        public double? OrientationAzimut { get; set; }
-        public double? ToitureInclinaison { get; set; }
-        public double? Longueur { get; set; }
-        public double? Largeur { get; set; }
+        public double OrientationAzimut { get; set; }
+        public double ToitureInclinaison { get; set; }
+        public double Longueur { get; set; }
+        public double Largeur { get; set; }
     }
 }
 

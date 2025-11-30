@@ -2,7 +2,7 @@
     ViewBag.Title = "Portail des énergies renouvelables en Valais";
 }
 
-@model MVC.Models.ProductionChartVm
+@model MVC.Models.HomeDashboardVm
 @using System.Text.Json
 
 <!-- Import de Bootstrap pour le style -->
@@ -46,8 +46,9 @@
 <!-- Script du graphique -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const labels = @Html.Raw(JsonSerializer.Serialize(Model.Years));
-    const series = @Html.Raw(JsonSerializer.Serialize(Model.KWh));
+    // Global chart (production cantonale brute)
+    const labels = @Html.Raw(JsonSerializer.Serialize(Model.GlobalChart.Years));
+    const series = @Html.Raw(JsonSerializer.Serialize(Model.GlobalChart.KWh));
 
     const ctx = document.getElementById('prodChart');
 
@@ -56,7 +57,7 @@
         data: {
             labels: labels,
             datasets: [{
-                label: 'kWh',
+                label: 'Production brute (GWh)',
                 data: series,
                 borderColor: 'rgba(0, 99, 255, 0.8)',
                 backgroundColor: 'rgba(0, 99, 255, 0.1)',
@@ -72,17 +73,17 @@
                 legend: { display: false },
                 tooltip: {
                     callbacks: {
-                        label: (ctx) => `${ctx.parsed.y.toLocaleString()} kWh`
+                        label: (ctx) => `${ctx.parsed.y.toLocaleString()} GWh`
                     }
                 }
             },
             scales: {
                 x: {
-                    title: { display: true, text: 'Années (9 dernières)' },
+                    title: { display: true, text: 'Années' },
                     ticks: { autoSkip: false }
                 },
                 y: {
-                    title: { display: true, text: 'kWh' },
+                    title: { display: true, text: 'GWh' },
                     beginAtZero: true
                 }
             }
