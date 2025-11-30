@@ -182,3 +182,4 @@ C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\Integrati
 C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject6\WebAPI\obj\Debug\net8.0\WebAPI.pdb
 C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject6\WebAPI\obj\Debug\net8.0\WebAPI.genruntimeconfig.cache
 C:\Users\Prêt Maintenant\Desktop\HES\Semestre5\IntegrationAndDevCycle\IntegrationProject6\WebAPI\obj\Debug\net8.0\ref\WebAPI.dll
+C:\lifecycle2\WebAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
