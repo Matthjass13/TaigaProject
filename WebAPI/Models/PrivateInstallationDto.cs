@@ -16,5 +16,9 @@
 
         public double Longueur { get; set; }
         public double Largeur { get; set; }
+
+        public string? Direction { get; set; }
+
+
     }
 }

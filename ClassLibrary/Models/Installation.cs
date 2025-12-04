@@ -36,5 +36,9 @@ namespace ClassLibrary.Models
         public double? Longueur { get; set; }
         public double? Largeur { get; set; }
         public double? Surface { get; set; }
+
+        [MaxLength(50)]
+        public string? Direction { get; set; }
+
     }
 }

@@ -140,7 +140,8 @@ namespace WebAPI.Business
                     ToitureInclinaison = dto.ToitureInclinaison,
                     Longueur = dto.Longueur,
                     Largeur = dto.Largeur,
-                    Surface = dto.Longueur * dto.Largeur
+                    Surface = dto.Longueur * dto.Largeur,
+                    Direction = dto.Direction
                 };
 
                 _ctx.Installations.Add(entity);
