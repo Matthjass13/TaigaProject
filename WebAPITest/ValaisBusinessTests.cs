@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using WebAPI.Business;
 using WebAPI.Models;
 using Xunit;
+using Microsoft.Extensions.Logging;
+using System.Threading;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace WebAPITest
 {
@@ -17,13 +20,28 @@ namespace WebAPITest
         {
             var queryable = elements.AsQueryable();
             var dbSetMock = new Mock<DbSet<T>>();
-            dbSetMock.As<IQueryable<T>>().Setup(m => m.Provider).Returns(queryable.Provider);
+
+            // Partie async (EF Core)
+            dbSetMock.As<IAsyncEnumerable<T>>()
+                     .Setup(m => m.GetAsyncEnumerator(default))
+                     .Returns(new TestAsyncEnumerator<T>(queryable.GetEnumerator()));
+
+            dbSetMock.As<IQueryable<T>>()
+                     .Setup(m => m.Provider)
+                     .Returns(new TestAsyncQueryProvider<T>(queryable.Provider));
+
+            // Partie synchro
             dbSetMock.As<IQueryable<T>>().Setup(m => m.Expression).Returns(queryable.Expression);
             dbSetMock.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(queryable.ElementType);
             dbSetMock.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(() => queryable.GetEnumerator());
+
+            // Ajout simple (si ton code fait ctx.Set<T>().Add(...))
             dbSetMock.Setup(d => d.Add(It.IsAny<T>())).Callback<T>(e => { });
+
             return dbSetMock;
         }
+
+
 
         [Fact]
         public async Task GetProductionChartAsync_Returns_Last10Years()
@@ -42,8 +60,8 @@ namespace WebAPITest
             var mockCtx = new Mock<ValaisContext>();
             mockCtx.Setup(c => c.YearlyProduction).Returns(mockSet.Object);
 
-            var business = new ValaisBusiness(mockCtx.Object);
-
+            var loggerMock = new Mock<ILogger<ValaisBusiness>>();
+            var business = new ValaisBusiness(mockCtx.Object, loggerMock.Object);
             // Act
             var result = await business.GetProductionChartAsync();
 
@@ -86,7 +104,8 @@ namespace WebAPITest
             mockCtx.Setup(c => c.YearlyProduction).Returns(mockSet.Object);
             mockCtx.Setup(c => c.Yearly).Returns(mockYearSet.Object);
 
-            var business = new ValaisBusiness(mockCtx.Object);
+            var loggerMock = new Mock<ILogger<ValaisBusiness>>();
+            var business = new ValaisBusiness(mockCtx.Object, loggerMock.Object);
 
             // Act
             var result = await business.GetProductionPieAsync();
@@ -109,7 +128,8 @@ namespace WebAPITest
             mockCtx.Setup(c => c.Installations).Returns(mockSet.Object);
             mockCtx.Setup(c => c.SaveChangesAsync(default)).ReturnsAsync(1);
 
-            var business = new ValaisBusiness(mockCtx.Object);
+            var loggerMock = new Mock<ILogger<ValaisBusiness>>();
+            var business = new ValaisBusiness(mockCtx.Object, loggerMock.Object);
 
             var dto = new PrivateInstallationDto
             {
