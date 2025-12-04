@@ -33,6 +33,12 @@ namespace WebAPI.Controllers
             var registration = await _business.CreateInstallationAsync(dto);
             return Ok(registration);
         }
+
+        [HttpGet("pv")]
+        public async Task<ActionResult<ProductionChartDto>> GetPv()
+        {
+            return Ok(await _business.GetPvChartAsync());
+        }
     }
 }
 

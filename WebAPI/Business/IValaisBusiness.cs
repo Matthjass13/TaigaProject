@@ -7,5 +7,6 @@ namespace WebAPI.Business
         Task<ProductionChartDto> GetProductionChartAsync();
         Task<ProductionPieDto> GetProductionPieAsync();
         Task<int> CreateInstallationAsync(PrivateInstallationDto dto);
+        Task<ProductionChartDto> GetPvChartAsync();
     }
 }

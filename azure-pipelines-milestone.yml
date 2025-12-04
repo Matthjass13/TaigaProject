@@ -1,0 +1,39 @@
+trigger: none  # Pas de déclenchement automatique
+pr: none
+
+# On utilise des variables, par exemple pour identifier le milestone
+variables:
+  milestone: 'M1'
+  buildConfiguration: 'Release'
+
+stages:
+- stage: Build
+  displayName: "Milestone Build $(milestone)"
+  jobs:
+  - job: Build
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: "Restore"
+      inputs:
+        command: restore
+        projects: '**/*.csproj'
+
+    - task: DotNetCoreCLI@2
+      displayName: "Build"
+      inputs:
+        command: build
+        projects: '**/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: "Run Tests"
+      inputs:
+        command: test
+        projects: '**/*Tests.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+
+    - task: PublishBuildArtifacts@1
+      displayName: "Publish Milestone Artifact"
+      inputs:
+        pathToPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: 'milestone-$(milestone)'
