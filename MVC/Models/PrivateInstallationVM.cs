@@ -45,6 +45,9 @@ namespace MVC.Models
         [Required(ErrorMessage = "Veuillez entrer la localité.")]
         public string? Localite { get; set; }
 
+
+        public string? Direction { get; set; }
+
     }
 }
 

@@ -72,6 +72,7 @@ namespace MVC.Controllers
                     stored.No = vm.No;
                     stored.NPA = vm.NPA;
                     stored.Localite = vm.Localite;
+                    stored.Direction = vm.Direction;
 
                     ModelState.Clear();
                     if (string.IsNullOrWhiteSpace(stored.Rue))
