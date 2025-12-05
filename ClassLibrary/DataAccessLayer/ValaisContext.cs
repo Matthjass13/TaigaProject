@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ClassLibrary.Models; // ou ClassLibrary.Models selon l’endroit où sont tes entités
+using ClassLibrary.Models;
 
 namespace ClassLibrary.DataAccessLayer
 {
@@ -7,11 +7,11 @@ namespace ClassLibrary.DataAccessLayer
     {
         public ValaisContext(DbContextOptions<ValaisContext> options) : base(options) { }
 
-        public DbSet<Yearly> Yearly => Set<Yearly>();
-        public DbSet<EnergyType> EnergyType => Set<EnergyType>();
-        public DbSet<YearlyProduction> YearlyProduction => Set<YearlyProduction>();
-        public DbSet<Installation> Installations { get; set; }
-
+        public virtual DbSet<Yearly> Yearly { get; set; }
+        public virtual DbSet<EnergyType> EnergyType { get; set; }
+        public virtual DbSet<YearlyProduction> YearlyProduction { get; set; }
+        public virtual DbSet<Installation> Installations { get; set; }
     }
 }
+
 

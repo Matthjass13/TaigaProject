@@ -16,19 +16,21 @@ namespace WebAPI.Business
             _logger = logger;
         }
 
-        public async Task<ProductionChartDto> GetProductionChartAsync()
+        public Task<ProductionChartDto> GetProductionChartAsync()
         {
             const string ENERGY = "Production cantonale brute";
 
-            var rows = await _ctx.YearlyProduction
+            // Requête synchrone
+            var rows = _ctx.YearlyProduction
                 .Include(x => x.Year)
                 .Include(x => x.EnergyType)
                 .Where(x => x.EnergyType.Name == ENERGY)
                 .OrderByDescending(x => x.Year.Year)
                 .Take(10)
                 .AsNoTracking()
-                .ToListAsync();
+                .ToList();
 
+            // On remet dans l'ordre croissant
             rows.Reverse();
 
             var dto = new ProductionChartDto
@@ -41,11 +43,11 @@ namespace WebAPI.Business
             // Ajouter 2025 avec production PV calculée
             try
             {
-                var installs2025 = await _ctx.Installations
-                    .Where(i => i.SelectedEnergyType != null && 
-                               i.SelectedEnergyType.ToUpper().Contains("PHOTO"))
+                var installs2025 = _ctx.Installations
+                    .Where(i => i.SelectedEnergyType != null &&
+                                i.SelectedEnergyType.ToUpper().Contains("PHOTO"))
                     .AsNoTracking()
-                    .ToListAsync();
+                    .ToList(); // synchrone
 
                 double prod2025KWh = 0;
                 foreach (var inst in installs2025)
@@ -54,7 +56,9 @@ namespace WebAPI.Business
                 }
                 double prod2025GWh = prod2025KWh / 1_000_000.0;
 
-                _logger.LogInformation("GetProductionChartAsync: Ajout 2025 avec {GWh} GWh PV", prod2025GWh);
+                _logger.LogInformation(
+                    "GetProductionChartAsync: Ajout 2025 avec {GWh} GWh PV",
+                    prod2025GWh);
 
                 dto.Years.Add(2025);
                 dto.KWh.Add(prod2025GWh);
@@ -67,32 +71,35 @@ namespace WebAPI.Business
                 dto.KWh.Add(0);
             }
 
-            return dto;
+            // Pas de vrai async, donc on wrap dans une Task
+            return Task.FromResult(dto);
         }
 
-        public async Task<ProductionPieDto> GetProductionPieAsync()
+
+        public Task<ProductionPieDto> GetProductionPieAsync()
         {
-            var latestYear = await _ctx.Yearly
+            // Dernière année dispo (synchrone)
+            var latestYear = _ctx.Yearly
                 .OrderByDescending(y => y.Year)
                 .Select(y => (int)y.Year)
-                .FirstAsync();
+                .First();
 
             var allowed = new Dictionary<string, string>
-            {
-                { "Centrales hydrauliques - Total", "Hydraulique" },
-                { "Centrales thermiques - Total", "Thermiques" },
-                { "Installations biogaz", "Biogaz" },
-                { "Installations photovoltaïques", "Photovoltaïque" },
-                { "Installations éoliennes", "Éolien" }
-            };
+    {
+        { "Centrales hydrauliques - Total", "Hydraulique" },
+        { "Centrales thermiques - Total", "Thermiques" },
+        { "Installations biogaz", "Biogaz" },
+        { "Installations photovoltaïques", "Photovoltaïque" },
+        { "Installations éoliennes", "Éolien" }
+    };
 
-            var rows = await _ctx.YearlyProduction
+            var rows = _ctx.YearlyProduction
                 .Include(p => p.EnergyType)
                 .Include(p => p.Year)
                 .Where(p => p.Year.Year == latestYear &&
                             allowed.Keys.Contains(p.EnergyType.Name))
                 .AsNoTracking()
-                .ToListAsync();
+                .ToList(); // synchrone
 
             var dto = new ProductionPieDto
             {
@@ -109,22 +116,28 @@ namespace WebAPI.Business
                 }
             }
 
-            return dto;
+            return Task.FromResult(dto);
         }
+
 
         public async Task<int> CreateInstallationAsync(PrivateInstallationDto dto)
         {
             try
             {
-                _logger.LogInformation("CreateInstallationAsync: Création installation {Type}", dto.SelectedEnergyType);
+                _logger.LogInformation(
+                    "CreateInstallationAsync: Création installation {Type}",
+                    dto.SelectedEnergyType);
 
-                // Générer le prochain numéro d'enregistrement
-                var maxRegistration = await _ctx.Installations
-                    .MaxAsync(i => (int?)i.NoRegistration) ?? 0;
-                
+                // Générer le prochain numéro d'enregistrement (synchrone)
+                var maxRegistration = _ctx.Installations
+                    .Select(i => (int?)i.NoRegistration)
+                    .Max() ?? 0;
+
                 var nextRegistration = maxRegistration + 1;
-                
-                _logger.LogInformation("CreateInstallationAsync: Numéro généré {No}", nextRegistration);
+
+                _logger.LogInformation(
+                    "CreateInstallationAsync: Numéro généré {No}",
+                    nextRegistration);
 
                 var entity = new Installation
                 {
@@ -144,9 +157,12 @@ namespace WebAPI.Business
                 };
 
                 _ctx.Installations.Add(entity);
-                await _ctx.SaveChangesAsync();
+                await _ctx.SaveChangesAsync(); // on garde l'appel async ici
 
-                _logger.LogInformation("CreateInstallationAsync: Installation créée avec ID {Id}", entity.NoRegistration);
+                _logger.LogInformation(
+                    "CreateInstallationAsync: Installation créée avec ID {Id}",
+                    entity.NoRegistration);
+
                 return entity.NoRegistration;
             }
             catch (Exception ex)
@@ -159,6 +175,7 @@ namespace WebAPI.Business
                 throw;
             }
         }
+
 
         // ---- PV CHART (2010-2018 + 2025 calculé) ----
         public async Task<ProductionChartDto> GetPvChartAsync()
