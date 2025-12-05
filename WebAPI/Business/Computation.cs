@@ -5,8 +5,9 @@ namespace WebAPI.Business
     public class Computation : IComputation
     {
 
+        /*
         public const double DefaultWpPerM2 = 220.0;
-        public const double ReferenceSurfaceM2 = 40.0;
+        public const double ReferenceSurfaceM2 = 40.0;*/
 
         public double ComputeKWh(Installation inst)
         {

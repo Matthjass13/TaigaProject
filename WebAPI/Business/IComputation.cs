@@ -12,9 +12,5 @@ namespace WebAPI.Business
         public double ComputeKWh(Installation inst);
         public double ComputeTotalKWh(List<Installation> insts);
     
-    
-
-
-    
     }
 }

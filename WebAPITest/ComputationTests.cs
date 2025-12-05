@@ -16,9 +16,21 @@ namespace WebAPITest
 {
     public class ComputationTests
     {
-
         private const double Tolerance = 1e-6;
-        private readonly ValaisBusiness vb = new ValaisBusiness();
+        private readonly Computation vb = new Computation();
+
+
+        /*
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(25, 5500)]
+        public void CalculateInstalledPowerWatts_ShouldReturnSurfaceTimesWpPerM2(double surface, double expectedWatts)
+        {
+            double surface = 25.0;
+            double expectedWatts = 25.0 * 220; // 25 * 220 = 5500
+            double actual = vb.CalculateInstalledPowerWatts(surface);
+            Assert.InRange(actual, expectedWatts - Tolerance, expectedWatts + Tolerance);
+        }*/
 
 
 
