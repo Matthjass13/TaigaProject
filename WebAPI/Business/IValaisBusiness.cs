@@ -1,4 +1,5 @@
-﻿using WebAPI.Models;
+﻿using ClassLibrary.Models;
+using WebAPI.Models;
 
 namespace WebAPI.Business
 {
@@ -8,5 +9,6 @@ namespace WebAPI.Business
         Task<ProductionPieDto> GetProductionPieAsync();
         Task<int> CreateInstallationAsync(PrivateInstallationDto dto);
         Task<ProductionChartDto> GetPvChartAsync();
+        double CalculateTotalProduction(List<Installation> insts);
     }
 }

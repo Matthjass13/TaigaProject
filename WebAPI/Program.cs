@@ -13,6 +13,7 @@ builder.Services.AddDbContext<ValaisContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ValaisDB")));
 
 // BUSINESS LAYER
+builder.Services.AddScoped<IComputation, Computation>();
 builder.Services.AddScoped<IValaisBusiness, ValaisBusiness>();
 
 var app = builder.Build();

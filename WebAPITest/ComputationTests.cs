@@ -22,7 +22,7 @@ namespace WebAPITest
         [Theory]
         [InlineData(5, 5, 25)]
         [InlineData(7, 8, 56)]
-        public void ComputeSurface_ShouldReturnCorrectSurface(double length, double width, double expectedSurface)
+        public void ComputeSurface_Returns_CorrectSurface(double length, double width, double expectedSurface)
         {
             //Arrange & Act
             double actualSurface = computation.ComputeSurface(length, width);
@@ -35,7 +35,7 @@ namespace WebAPITest
         [Theory]
         [InlineData(1, 0.001)]
         [InlineData(400, 0.4)]
-        public void ConvertWattIntoKiloWatt_ShouldDoCorrectConversion(double watt, double expectedKW)
+        public void ConvertWattIntoKiloWatt_Returns_CorrectConversion(double watt, double expectedKW)
         {
             //Arrange & Act
             double actualKW = computation.ConvertWattIntoKiloWatt(watt);
@@ -54,7 +54,7 @@ namespace WebAPITest
         [InlineData(-160, "north")]
         [InlineData(-110, "east")]
         [InlineData(-70, "east")]
-        public void DetermineDirection_ShouldFindRightDirection(double azimut, string expectedDirection)
+        public void DetermineDirection_Returns_RightDirection(double azimut, string expectedDirection)
         {
             //Arrange & Act
             string actualDirection = computation.DetermineDirection(azimut);
@@ -64,7 +64,7 @@ namespace WebAPITest
         }
 
         [Fact]
-        public void DetermineOrientationFactor_ShouldReturn100WhenSouth()
+        public void DetermineOrientationFactor_Returns_100WhenSouth()
         {
             //Arrange
             string direction = "south";
@@ -79,7 +79,7 @@ namespace WebAPITest
         [Theory]
         [InlineData("east")]
         [InlineData("west")]
-        public void DetermineOrientationFactor_ShouldReturn80WhenEastOrWest(string direction)
+        public void DetermineOrientationFactor_Returns_80WhenEastOrWest(string direction)
         {
             //Arrange & Act
             double actualFactor = computation.DetermineOrientationFactor(direction);
@@ -91,7 +91,7 @@ namespace WebAPITest
         [Theory]
         [InlineData("Polychristallin", 175)]
         [InlineData("Monochristallin", 250)]
-        public void DetermineSpecificYield(string solarCellType, double expectedYield)
+        public void DetermineSpecificYield_Returns_CorrectYield(string solarCellType, double expectedYield)
         {
             //Arrange & Act
             double actualYield = computation.DetermineSpecificYield(solarCellType);
@@ -103,7 +103,7 @@ namespace WebAPITest
 
 
         [Fact]
-        public void ComputeKWh_ShouldComputeCorrectValue_WithMocks()
+        public void ComputeKWh_Returns_CorrectValueWithMocks()
         {
             // Arrange
             var mock = new Mock<Computation>();
@@ -134,7 +134,7 @@ namespace WebAPITest
 
 
         [Fact]
-        public void ComputeTotalKWh_ShouldSumAllComputeKWhValues()
+        public void ComputeTotalKWh_Returns_ShouldSumAllComputedKWhValues()
         {
             // Arrange
             var mock = new Mock<Computation>();

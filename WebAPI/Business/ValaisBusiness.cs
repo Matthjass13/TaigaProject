@@ -1,6 +1,7 @@
 ﻿using ClassLibrary.DataAccessLayer;
 using ClassLibrary.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using WebAPI.Models;
 
 namespace WebAPI.Business
@@ -9,11 +10,13 @@ namespace WebAPI.Business
     {
         private readonly ValaisContext _ctx;
         private readonly ILogger<ValaisBusiness> _logger;
+        private readonly IComputation _computation;
 
-        public ValaisBusiness(ValaisContext ctx, ILogger<ValaisBusiness> logger)
+        public ValaisBusiness(ValaisContext ctx, ILogger<ValaisBusiness> logger, IComputation computation)
         {
             _ctx = ctx;
             _logger = logger;
+            _computation = computation;
         }
 
         public Task<ProductionChartDto> GetProductionChartAsync()
@@ -234,6 +237,8 @@ namespace WebAPI.Business
 
                     _logger.LogInformation("GetPvChartAsync: {Count} installations 2025.", installs2025.Count);
 
+
+                    /*
                     double prod2025KWh = 0;
                     foreach (var inst in installs2025)
                     {
@@ -245,7 +250,8 @@ namespace WebAPI.Business
                         {
                             _logger.LogWarning(exInst, "Erreur calcul installation {Id}", inst.NoRegistration);
                         }
-                    }
+                    }*/
+                    double prod2025KWh = CalculateTotalProduction(installs2025);
 
                     double prod2025GWh = prod2025KWh / 1_000_000.0;
                     
@@ -293,6 +299,11 @@ namespace WebAPI.Business
                 surface = (inst.Longueur ?? 0) * (inst.Largeur ?? 0);
             }
             return surface * specificYield * orientationFactor;
+        }
+
+        public double CalculateTotalProduction(List<Installation> insts)
+        {
+            return _computation.ComputeTotalKWh(insts);
         }
     }
 }

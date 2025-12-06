@@ -71,7 +71,8 @@ namespace WebAPITest
             mockCtx.Setup(c => c.YearlyProduction).Returns(mockSet.Object);
 
             var loggerMock = new Mock<ILogger<ValaisBusiness>>();
-            var business = new ValaisBusiness(mockCtx.Object, loggerMock.Object);
+            var computationMock = new Mock<IComputation>();
+            var business = new ValaisBusiness(mockCtx.Object, loggerMock.Object, computationMock.Object);
 
             // Act
             var result = await business.GetProductionChartAsync();
@@ -123,7 +124,8 @@ namespace WebAPITest
 
 
             var loggerMock = new Mock<ILogger<ValaisBusiness>>();
-            var business = new ValaisBusiness(mockCtx.Object, loggerMock.Object);
+            var computationMock = new Mock<IComputation>();
+            var business = new ValaisBusiness(mockCtx.Object, loggerMock.Object, computationMock.Object);
 
             // Act
             var result = await business.GetProductionPieAsync();
@@ -172,7 +174,8 @@ namespace WebAPITest
                    .ReturnsAsync(1);
 
             var loggerMock = new Mock<ILogger<ValaisBusiness>>();
-            var business = new ValaisBusiness(mockCtx.Object, loggerMock.Object);
+            var computationMock = new Mock<IComputation>();
+            var business = new ValaisBusiness(mockCtx.Object, loggerMock.Object, computationMock.Object);
 
             var dto = new PrivateInstallationDto
             {
