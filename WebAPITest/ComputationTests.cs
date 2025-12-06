@@ -17,93 +17,153 @@ namespace WebAPITest
     public class ComputationTests
     {
         private const double Tolerance = 1e-6;
-        private readonly Computation vb = new Computation();
-
-
-        /*
+        private readonly Computation computation = new Computation();
+        
         [Theory]
-        [InlineData(0, 0)]
-        [InlineData(25, 5500)]
-        public void CalculateInstalledPowerWatts_ShouldReturnSurfaceTimesWpPerM2(double surface, double expectedWatts)
+        [InlineData(5, 5, 25)]
+        [InlineData(7, 8, 56)]
+        public void ComputeSurface_ShouldReturnCorrectSurface(double length, double width, double expectedSurface)
         {
-            double surface = 25.0;
-            double expectedWatts = 25.0 * 220; // 25 * 220 = 5500
-            double actual = vb.CalculateInstalledPowerWatts(surface);
-            Assert.InRange(actual, expectedWatts - Tolerance, expectedWatts + Tolerance);
-        }*/
+            //Arrange & Act
+            double actualSurface = computation.ComputeSurface(length, width);
 
-
-
-
-
-        /*
-        [Theory]
-        [InlineData(0, 0)]
-        [InlineData(25, 5500)]
-        public void CalculateInstalledPowerWatts_ShouldReturnSurfaceTimesWpPerM2(double surface, double expectedWatts)
-        {
-            double surface = 25.0;
-            double expectedWatts = 25.0 * 220; // 25 * 220 = 5500
-            double actual = vb.CalculateInstalledPowerWatts(surface);
-            Assert.InRange(actual, expectedWatts - Tolerance, expectedWatts + Tolerance);
+            //Assert
+            Assert.Equal(actualSurface, expectedSurface);
         }
+
 
         [Theory]
-        [InlineData(0, 0)]
-        [InlineData(1000, 1)]
-        [InlineData(5500, 5.5)]
-        [InlineData(12345, 12.345)]
-        public void ConvertWattsToKw_ShouldDivideBy1000(double watts, double expectedKw)
+        [InlineData(1, 0.001)]
+        [InlineData(400, 0.4)]
+        public void ConvertWattIntoKiloWatt_ShouldDoCorrectConversion(double watt, double expectedKW)
         {
-            double actual = _calc.ConvertWattsToKw(watts);
-            Assert.InRange(actual, expectedKw - Tolerance, expectedKw + Tolerance);
+            //Arrange & Act
+            double actualKW = computation.ConvertWattIntoKiloWatt(watt);
+
+            //Assert
+            Assert.InRange(actualKW, expectedKW - Tolerance, expectedKW + Tolerance);
+        }
+
+
+        [Theory]
+        [InlineData(0, "south")]
+        [InlineData(15, "south")]
+        [InlineData(120, "west")]
+        [InlineData(130, "west")]
+        [InlineData(170, "north")]
+        [InlineData(-160, "north")]
+        [InlineData(-110, "east")]
+        [InlineData(-70, "east")]
+        public void DetermineDirection_ShouldFindRightDirection(double azimut, string expectedDirection)
+        {
+            //Arrange & Act
+            string actualDirection = computation.DetermineDirection(azimut);
+
+            //Assert
+            Assert.Equal(actualDirection, expectedDirection);
         }
 
         [Fact]
-        public void CalculateSpecificYieldKwhPerKwp_WithReference40m2Mono_ShouldReturnExpected()
+        public void DetermineOrientationFactor_ShouldReturn100WhenSouth()
         {
-            double refProductionKwh = 10000.0; // mono reference for 40m2
-            double expectedSpecificYield = 10000.0 / ((ProductionCalculator.ReferenceSurfaceM2 * ProductionCalculator.DefaultWpPerM2) / 1000.0);
-            double actual = vb.CalculateSpecificYieldKwhPerKwp(refProductionKwh);
-            Assert.InRange(actual, expectedSpecificYield - Tolerance, expectedSpecificYield + Tolerance);
+            //Arrange
+            string direction = "south";
+
+            //Act
+            double actualFactor = computation.DetermineOrientationFactor(direction);
+
+            //Assert
+            Assert.True(actualFactor == 1);
         }
+
+        [Theory]
+        [InlineData("east")]
+        [InlineData("west")]
+        public void DetermineOrientationFactor_ShouldReturn80WhenEastOrWest(string direction)
+        {
+            //Arrange & Act
+            double actualFactor = computation.DetermineOrientationFactor(direction);
+
+            //Assert
+            Assert.True(actualFactor == 0.8);
+        }
+
+        [Theory]
+        [InlineData("Polychristallin", 175)]
+        [InlineData("Monochristallin", 250)]
+        public void DetermineSpecificYield(string solarCellType, double expectedYield)
+        {
+            //Arrange & Act
+            double actualYield = computation.DetermineSpecificYield(solarCellType);
+
+            //Assert
+            Assert.Equal(actualYield, expectedYield);
+        }
+
+
 
         [Fact]
-        public void CalculateProductionBeforeOrientation_ShouldMultiplyKwpBySpecificYield()
+        public void ComputeKWh_ShouldComputeCorrectValue_WithMocks()
         {
-            double kWp = 5.5;
-            // compute specific yield as above
-            double specificYield = vb.CalculateSpecificYieldKwhPerKwp(10000.0);
-            double expected = kWp * specificYield; // should be 6250 for our numbers
-            double actual = vb.CalculateProductionBeforeOrientation(kWp, specificYield);
-            Assert.InRange(actual, expected - Tolerance, expected + Tolerance);
+            // Arrange
+            var mock = new Mock<Computation>();
+
+            var inst = new Installation
+            {
+                SelectedSolarCellType = "Mono",
+                Longueur = 10,
+                Largeur = 5,
+                OrientationAzimut = 90
+            };
+
+            mock.Setup(s => s.DetermineSpecificYield("Mono")).Returns(1500);
+            mock.Setup(s => s.ComputeSurface(10, 5)).Returns(50);
+            mock.Setup(s => s.DetermineDirection(90)).Returns("Est");
+            mock.Setup(s => s.DetermineOrientationFactor("Est")).Returns(0.85);
+
+            mock.CallBase = true;
+
+            double expected = 1500 * 50 * 0.85;
+
+            // Act
+            double result = mock.Object.ComputeKWh(inst);
+
+            // Assert
+            Assert.Equal(expected, result);
         }
+
 
         [Fact]
-        public void GetOrientationFactor_45deg_ShouldReturn0Point9(bool, double expectedFactor)
+        public void ComputeTotalKWh_ShouldSumAllComputeKWhValues()
         {
-            double angle = 45.0;
-            double expected = 0.9;
-            double actual = vb.GetOrientationFactor(angle);
-            Assert.Equal(actual, expected - Tolerance, expected + Tolerance);
+            // Arrange
+            var mock = new Mock<Computation>();
+            mock.CallBase = true;
+
+            var installations = new List<Installation>
+            {
+                new Installation(),
+                new Installation(),
+                new Installation()
+            };
+
+            mock.SetupSequence(s => s.ComputeKWh(It.IsAny<Installation>()))
+                .Returns(100)
+                .Returns(200)
+                .Returns(300);
+
+            double expected = 100 + 200 + 300;
+
+            // Act
+            double result = mock.Object.ComputeTotalKWh(installations);
+
+            // Assert
+            Assert.Equal(expected, result);
+
+            mock.Verify(s => s.ComputeKWh(It.IsAny<Installation>()), Times.Exactly(3));
         }
 
-        [Fact]
-        public void CalculateAnnualProduction_FullFlowExample_ShouldReturnExpectedAnnualKwh()
-        {
-            double surface = 25.0;
-            bool isMono = true;
-            double orientationDeg = 45.0;
-            double refProductionFor40m2Mono = 10000.0;
 
-            double expected = 5625.0; // precomputed: 25m2 mono at 45deg -> 5625 kWh (see discussion)
-            double actual = vb.CalculateAnnualProduction(surface, isMono, orientationDeg, refProductionFor40m2Mono);
-
-            // Small tolerance
-            Assert.InRange(actual, expected - 1e-6, expected + 1e-6);
-        }
-
-        */
     }
 }
 
