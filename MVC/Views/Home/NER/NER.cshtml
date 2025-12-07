@@ -2,7 +2,7 @@
     ViewBag.Title = "NER";
 }
 
-<h1>Home > NER</h1>
+<h1><a asp-controller="Home" asp-action="Index">Home</a> > NER</h1>
 
 <div style="text-align: right;">
     <a asp-action="PrivateInstallation" class="add-installation-btn">
@@ -14,8 +14,6 @@
 </div>
 
 @await Html.PartialAsync("_Menu")
-
-
 
 <style>
     .add-installation-btn {
@@ -42,7 +40,6 @@
         position: relative;
     }
 
-    /* Effet irrégulier type “dessin à la main” */
     .icon-container {
         border: 2px solid black;
         clip-path: polygon(5% 0%, 95% 0%, 100% 20%, 100% 80%, 95% 100%, 5% 100%, 0% 80%, 0% 20%);

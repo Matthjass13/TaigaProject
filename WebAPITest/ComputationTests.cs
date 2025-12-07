@@ -1,24 +1,17 @@
 using Moq;
-using ClassLibrary.DataAccessLayer;
 using ClassLibrary.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebAPI.Business;
-using WebAPI.Models;
-using Xunit;
-using Microsoft.Extensions.Logging;
-using System.Threading;
-using Microsoft.EntityFrameworkCore.Query;
 
 namespace WebAPITest
 {
     public class ComputationTests
     {
-        private const double Tolerance = 1e-6;
+        private const double TOLERANCE = 1e-6;
         private readonly Computation computation = new Computation();
-        
+
+
+        // _____________ COMPUTE_SURFACE ______________
+
         [Theory]
         [InlineData(5, 5, 25)]
         [InlineData(7, 8, 56)]
@@ -28,9 +21,20 @@ namespace WebAPITest
             double actualSurface = computation.ComputeSurface(length, width);
 
             //Assert
-            Assert.Equal(actualSurface, expectedSurface);
+            Assert.Equal(expectedSurface, actualSurface);
         }
 
+        [Theory]
+        [InlineData(-1, 5)]
+        [InlineData(5, -2)]
+        [InlineData(-3, -3)]
+        public void ComputeSurface_ShouldThrow_WhenLengthOrWidthIsNegative(double length, double width)
+        {
+            // Arrange, Act & Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => computation.ComputeSurface(length, width));
+        }
+
+        // _____________ COMPUTE_KW ______________
 
         [Theory]
         [InlineData(1, 0.001)]
@@ -41,9 +45,19 @@ namespace WebAPITest
             double actualKW = computation.ConvertWattIntoKiloWatt(watt);
 
             //Assert
-            Assert.InRange(actualKW, expectedKW - Tolerance, expectedKW + Tolerance);
+            Assert.Equal(expectedKW, actualKW, TOLERANCE);
         }
 
+        [Theory]
+        [InlineData(-2)]
+        [InlineData(-3)]
+        public void ConvertWattIntoKiloWatt_ShouldThrow_WhenValueIsNegative(double watt)
+        {
+            // Arrange, Act & Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => computation.ConvertWattIntoKiloWatt(watt));
+        }
+
+        // _____________ COMPUTE_DIRECTION ______________
 
         [Theory]
         [InlineData(0, "south")]
@@ -60,8 +74,19 @@ namespace WebAPITest
             string actualDirection = computation.DetermineDirection(azimut);
 
             //Assert
-            Assert.Equal(actualDirection, expectedDirection);
+            Assert.Equal(expectedDirection, actualDirection);
         }
+
+        [Theory]
+        [InlineData(-200)]
+        [InlineData(300)]
+        public void DetermineDirection_ShouldThrow_WhenAbsValueBiggerThan180(double azimut)
+        {
+            // Arrange, Act & Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => computation.DetermineDirection(azimut));
+        }
+
+        // _____________ COMPUTE_ORIENTATION_FACTOR ______________
 
         [Fact]
         public void DetermineOrientationFactor_Returns_100WhenSouth()
@@ -78,6 +103,7 @@ namespace WebAPITest
 
         [Theory]
         [InlineData("east")]
+        [InlineData("EaSt")]
         [InlineData("west")]
         public void DetermineOrientationFactor_Returns_80WhenEastOrWest(string direction)
         {
@@ -89,6 +115,19 @@ namespace WebAPITest
         }
 
         [Theory]
+        [InlineData("toto")]
+        [InlineData("")]
+        [InlineData(null)]
+        [InlineData("northeast")]
+        public void DetermineOrientationFactor_ShouldThrow_WhenOrientationIsInvalid(string orientation)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                computation.DetermineOrientationFactor(orientation));
+        }
+
+        // _____________ COMPUTE_YIELD ______________
+
+        [Theory]
         [InlineData("Polychristallin", 175)]
         [InlineData("Monochristallin", 250)]
         public void DetermineSpecificYield_Returns_CorrectYield(string solarCellType, double expectedYield)
@@ -97,10 +136,26 @@ namespace WebAPITest
             double actualYield = computation.DetermineSpecificYield(solarCellType);
 
             //Assert
-            Assert.Equal(actualYield, expectedYield);
+            Assert.Equal(expectedYield, actualYield);
         }
 
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("mono")]
+        [InlineData("poly")]
+        [InlineData("Monocristallin")]
+        [InlineData("Pollychristallin")]
+        [InlineData("Unknown")]
+        public void DetermineSpecificYield_ShouldThrow_WhenSolarCellTypeIsInvalid(string solarCellType)
+        {
+            // Act & Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                computation.DetermineSpecificYield(solarCellType));
+        }
 
+        // _____________ COMPUTE_KW ______________
 
         [Fact]
         public void ComputeKWh_Returns_CorrectValueWithMocks()
@@ -132,6 +187,7 @@ namespace WebAPITest
             Assert.Equal(expected, result);
         }
 
+        // _____________ COMPUTE_TOTAL_KW ______________
 
         [Fact]
         public void ComputeTotalKWh_Returns_ShouldSumAllComputedKWhValues()

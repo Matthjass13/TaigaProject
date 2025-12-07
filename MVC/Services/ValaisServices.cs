@@ -52,8 +52,7 @@ namespace MVC.Services
                 OrientationAzimut = vm.OrientationAzimut ?? 0,
                 ToitureInclinaison = vm.ToitureInclinaison ?? 0,
                 Longueur = vm.Longueur ?? 0,
-                Largeur = vm.Largeur ?? 0,
-                Direction = vm.Direction
+                Largeur = vm.Largeur ?? 0
             };
 
             var response = await _client.PostAsJsonAsync("/api/Production/installations", payload);
@@ -84,7 +83,6 @@ namespace MVC.Services
         public double ToitureInclinaison { get; set; }
         public double Longueur { get; set; }
         public double Largeur { get; set; }
-        public string? Direction { get; set; }
     }
 }
 

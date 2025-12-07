@@ -148,10 +148,10 @@ namespace WebAPITest
 
             // On simule des installations déjà en DB pour tester le Max()
             var existingInstallations = new List<Installation>
-    {
-        new Installation { NoRegistration = 3 },
-        new Installation { NoRegistration = 5 }   // => Max = 5, donc next = 6
-    };
+            {
+                new Installation { NoRegistration = 3 },
+                new Installation { NoRegistration = 5 }   // => Max = 5, donc next = 6
+            };
 
             // DbSet mocké qui supporte LINQ (Select, Max, etc.)
             var mockSet = CreateDbSetMock(existingInstallations);

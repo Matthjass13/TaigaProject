@@ -72,7 +72,6 @@ namespace MVC.Controllers
                     stored.No = vm.No;
                     stored.NPA = vm.NPA;
                     stored.Localite = vm.Localite;
-                    stored.Direction = vm.Direction;
 
                     ModelState.Clear();
                     if (string.IsNullOrWhiteSpace(stored.Rue))
@@ -106,7 +105,7 @@ namespace MVC.Controllers
                     ModelState.Clear();
 
                     if (!stored.OrientationAzimut.HasValue ||
-                        stored.OrientationAzimut < 0 || stored.OrientationAzimut > 360)
+                        stored.OrientationAzimut < -180 || stored.OrientationAzimut > 180)
                         ModelState.AddModelError(nameof(vm.OrientationAzimut),
                             "L'orientation doit �tre entre 0� et 360�.");
 

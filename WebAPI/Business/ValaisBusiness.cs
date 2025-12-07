@@ -1,7 +1,6 @@
 ﻿using ClassLibrary.DataAccessLayer;
 using ClassLibrary.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using WebAPI.Models;
 
 namespace WebAPI.Business
@@ -52,11 +51,8 @@ namespace WebAPI.Business
                     .AsNoTracking()
                     .ToList(); // synchrone
 
-                double prod2025KWh = 0;
-                foreach (var inst in installs2025)
-                {
-                    prod2025KWh += ComputePvInstallationKWh(inst);
-                }
+                double prod2025KWh = CalculateTotalProduction(installs2025);
+
                 double prod2025GWh = prod2025KWh / 1_000_000.0;
 
                 _logger.LogInformation(
@@ -88,13 +84,13 @@ namespace WebAPI.Business
                 .First();
 
             var allowed = new Dictionary<string, string>
-    {
-        { "Centrales hydrauliques - Total", "Hydraulique" },
-        { "Centrales thermiques - Total", "Thermiques" },
-        { "Installations biogaz", "Biogaz" },
-        { "Installations photovoltaïques", "Photovoltaïque" },
-        { "Installations éoliennes", "Éolien" }
-    };
+            {
+                { "Centrales hydrauliques - Total", "Hydraulique" },
+                { "Centrales thermiques - Total", "Thermiques" },
+                { "Installations biogaz", "Biogaz" },
+                { "Installations photovoltaïques", "Photovoltaïque" },
+                { "Installations éoliennes", "Éolien" }
+            };
 
             var rows = _ctx.YearlyProduction
                 .Include(p => p.EnergyType)
@@ -156,8 +152,7 @@ namespace WebAPI.Business
                     ToitureInclinaison = dto.ToitureInclinaison,
                     Longueur = dto.Longueur,
                     Largeur = dto.Largeur,
-                    Surface = dto.Longueur * dto.Largeur,
-                    Direction = dto.Direction
+                    Surface = dto.Longueur * dto.Largeur
                 };
 
                 _ctx.Installations.Add(entity);
@@ -237,20 +232,6 @@ namespace WebAPI.Business
 
                     _logger.LogInformation("GetPvChartAsync: {Count} installations 2025.", installs2025.Count);
 
-
-                    /*
-                    double prod2025KWh = 0;
-                    foreach (var inst in installs2025)
-                    {
-                        try
-                        {
-                            prod2025KWh += ComputePvInstallationKWh(inst);
-                        }
-                        catch (Exception exInst)
-                        {
-                            _logger.LogWarning(exInst, "Erreur calcul installation {Id}", inst.NoRegistration);
-                        }
-                    }*/
                     double prod2025KWh = CalculateTotalProduction(installs2025);
 
                     double prod2025GWh = prod2025KWh / 1_000_000.0;
@@ -280,25 +261,6 @@ namespace WebAPI.Business
                 dto.KWh = new List<double> { 0 };
                 return dto;
             }
-        }
-
-        private static double ComputePvInstallationKWh(Installation inst)
-        {
-            // Rendement spécifique (kWh/m2) selon type cellule
-            var tech = inst.SelectedSolarCellType?.ToLower() ?? string.Empty;
-            double specificYield = tech.Contains("mono") ? 250.0 : 175.0; // défaut poly si inconnu
-
-            // Facteur orientation (simplifié) : 0° = 1.0, sinon +/-90° ~ 0.8
-            double orientation = inst.OrientationAzimut ?? 0;
-            double orientationFactor = Math.Abs(orientation) < 1 ? 1.0 : (Math.Abs(Math.Abs(orientation) - 90) < 1 ? 0.8 : 0.8); // si autre valeur, applique 0.8
-
-            // Surface déjà calculée dans entité (Longueur*Largeur)
-            double surface = inst.Surface ?? 0;
-            if (surface <= 0)
-            {
-                surface = (inst.Longueur ?? 0) * (inst.Largeur ?? 0);
-            }
-            return surface * specificYield * orientationFactor;
         }
 
         public double CalculateTotalProduction(List<Installation> insts)
