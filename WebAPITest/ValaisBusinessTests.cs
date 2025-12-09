@@ -214,6 +214,73 @@ namespace WebAPITest
             mockCtx.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
         }
 
+        [Fact]
+        public async Task GetPvChartAsync_Contains2025YearWithValue()
+        {
+            // Arrange
+            const string PV_ENERGY_NAME = "Installations photovoltaïques";
+
+            // Historique PV (on en met, mais on ne va pas tester le nombre exact)
+            var pvEnergy = new EnergyType { EnergyTypeID = 1, Name = PV_ENERGY_NAME };
+
+            var years = Enumerable.Range(2010, 9) // 2010..2018
+                                  .Select(y => new Yearly { YearID = y, Year = (short)y })
+                                  .ToList();
+
+            var historical = years.Select(y => new YearlyProduction
+            {
+                Year = y,
+                EnergyType = pvEnergy,
+                ValueGWh = 10
+            }).ToList();
+
+            var mockYearlyProdSet = CreateDbSetMock(historical);
+
+            // Installations PV pour 2025 (pour calculer la prod 2025)
+            var installs2025 = new List<Installation>
+    {
+        new Installation
+        {
+            SelectedEnergyType = PV_ENERGY_NAME,
+            SelectedSolarCellType = "Monochristallin",
+            Longueur = 10,
+            Largeur = 5,
+            OrientationAzimut = 0
+        }
+    };
+            var mockInstSet = CreateDbSetMock(installs2025);
+
+            var options = new DbContextOptionsBuilder<ValaisContext>().Options;
+            var mockCtx = new Mock<ValaisContext>(options);
+            mockCtx.Setup(c => c.YearlyProduction).Returns(mockYearlyProdSet.Object);
+            mockCtx.Setup(c => c.Installations).Returns(mockInstSet.Object);
+
+            var loggerMock = new Mock<ILogger<ValaisBusiness>>();
+            var computationMock = new Mock<IComputation>();
+            var business = new ValaisBusiness(mockCtx.Object, loggerMock.Object, computationMock.Object);
+
+            // Act
+            var result = await business.GetPvChartAsync();
+
+            // Assert
+
+            // 1) Titre
+            Assert.Equal("Production PV [GWh]", result.Title);
+
+            // 2) Il y a au moins une année
+            Assert.NotEmpty(result.Years);
+            Assert.Equal(result.Years.Count, result.KWh.Count);
+
+            // 3) L’année 2025 est présente
+            Assert.Contains(2025, result.Years);
+            var index2025 = result.Years.IndexOf(2025);
+
+            // 4) Sa valeur est >= 0 (on s’assure que le calcul s’est fait sans exception)
+            Assert.True(result.KWh[index2025] >= 0);
+        }
+
+
+
 
     }
 }
