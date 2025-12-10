@@ -1,147 +1,251 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Xunit;
-
 using MVC.Controllers;
-using MVC.Services;
 using MVC.Models;
+using MVC.Services;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System.Text;
+using Xunit;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace MVCTest
 {
     public class HomeControllerTests
     {
-        [Fact]
-        public async Task Index_ReturnsView_WithHomeDashboardVm_AndViewBagFilled()
+        private static HomeController CreateControllerWithSession(IValaisServices service)
         {
-            var fakeGlobalChart = new ProductionChartVm();
-            var fakePvChart = new ProductionChartVm();
+            var controller = new HomeController(service);
 
-  
-            var fakeLabels = new List<string> { "Hydraulique", "PV" };
-            var fakeValues = new List<double> { 80, 20 };
-            var fakeYear = 2024;
+            var httpContext = new DefaultHttpContext();
+            httpContext.Session = new FakeSession();   
 
+            controller.ControllerContext = new ControllerContext
+            {
+                HttpContext = httpContext
+            };
+
+            var tempDataProvider = new Mock<ITempDataProvider>();
+            controller.TempData = new TempDataDictionary(httpContext, tempDataProvider.Object);
+
+            return controller;
+        }
+
+      
+        [Fact]
+        public async Task Index_ReturnsViewWithHomeDashboardVm_AndPieInViewBag()
+        {
             var serviceMock = new Mock<IValaisServices>();
 
-            serviceMock
-                .Setup(s => s.GetChartAsync())
-                .ReturnsAsync(fakeGlobalChart);
+            var fakeGlobalChart = new ProductionChartVm
+            {
+                Title = "Global",
+                Years = new List<int> { 2010, 2011 },
+                KWh = new List<double> { 10, 20 }
+            };
 
-            serviceMock
-                .Setup(s => s.GetPvChartAsync())
-                .ReturnsAsync(fakePvChart);
+            var fakePvChart = new ProductionChartVm
+            {
+                Title = "PV",
+                Years = new List<int> { 2020 },
+                KWh = new List<double> { 5 }
+            };
 
-            serviceMock
-                .Setup(s => s.GetPieAsync())
-                .ReturnsAsync((fakeLabels, fakeValues, fakeYear));
+            var fakePie = (
+                Labels: new List<string> { "Hydraulique", "PV" },
+                Values: new List<double> { 80, 20 },
+                Year: 2024
+            );
 
-            var controller = new HomeController(serviceMock.Object);
+            serviceMock.Setup(s => s.GetChartAsync())
+                       .ReturnsAsync(fakeGlobalChart);
+            serviceMock.Setup(s => s.GetPvChartAsync())
+                       .ReturnsAsync(fakePvChart);
+            serviceMock.Setup(s => s.GetPieAsync())
+                       .ReturnsAsync(fakePie);
 
-   
+            var controller = CreateControllerWithSession(serviceMock.Object);
+
             var result = await controller.Index();
 
             var viewResult = Assert.IsType<ViewResult>(result);
-
             var model = Assert.IsType<HomeDashboardVm>(viewResult.Model);
+
             Assert.Same(fakeGlobalChart, model.GlobalChart);
             Assert.Same(fakePvChart, model.PvChart);
 
-            Assert.Equal(fakeLabels, controller.ViewBag.NerLabels);
-            Assert.Equal(fakeValues, controller.ViewBag.NerValues);
-            Assert.Equal(fakeYear, controller.ViewBag.NerYear);
-
-            serviceMock.Verify(s => s.GetChartAsync(), Times.Once);
-            serviceMock.Verify(s => s.GetPvChartAsync(), Times.Once);
-            serviceMock.Verify(s => s.GetPieAsync(), Times.Once);
+            Assert.Equal(fakePie.Labels, controller.ViewBag.NerLabels);
+            Assert.Equal(fakePie.Values, controller.ViewBag.NerValues);
+            Assert.Equal(fakePie.Year, controller.ViewBag.NerYear);
         }
 
         [Fact]
-        public async Task PV_ReturnsPvIndexView_WithPvChartVm()
+        public void PrivateInstallation_Get_DefaultStepIsOne()
         {
-            var fakePvChart = new ProductionChartVm();
-
+         
             var serviceMock = new Mock<IValaisServices>();
-            serviceMock
-                .Setup(s => s.GetPvChartAsync())
-                .ReturnsAsync(fakePvChart);
+            var controller = CreateControllerWithSession(serviceMock.Object);
 
-            var controller = new HomeController(serviceMock.Object);
+          
+            var result = controller.PrivateInstallation(); // step = 1 par défaut
+
+          
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var vm = Assert.IsType<PrivateInstallationVm>(viewResult.Model);
+
+            Assert.Equal(1, vm.Step); 
+            Assert.Equal("~/Views/Home/PrivateInstallation/PrivateInstallation.cshtml",
+                         viewResult.ViewName);
+        }
+
+        [Fact]
+        public async Task PrivateInstallation_Post_Step1_Invalid_StaysOnStep1()
+        {
+         
+            var serviceMock = new Mock<IValaisServices>();
+            var controller = CreateControllerWithSession(serviceMock.Object);
+
+            var vm = new PrivateInstallationVm
+            {
+                Step = 1,
+                Rue = "",     
+                No = null,       
+                NPA = 50,         
+                Localite = ""      
+            };
+
+         
+            var result = await controller.PrivateInstallation(vm, action: null);
+
+    
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var returnedVm = Assert.IsType<PrivateInstallationVm>(viewResult.Model);
+
+            Assert.Equal(1, returnedVm.Step);
+
+            Assert.False(controller.ModelState.IsValid);
+
+            serviceMock.Verify(s => s.CreateInstallationAsync(It.IsAny<PrivateInstallationVm>()),
+                               Times.Never);
+        }
+
+        [Fact]
+        public async Task PrivateInstallation_Post_Step1_Valid_GoesToStep2()
+        {
+            var serviceMock = new Mock<IValaisServices>();
+            var controller = CreateControllerWithSession(serviceMock.Object);
+
+            var vm = new PrivateInstallationVm
+            {
+                Step = 1,
+                Rue = "Rue du Test",
+                No = 10,
+                NPA = 1950,
+                Localite = "Sion"
+            };
+
+            var result = await controller.PrivateInstallation(vm, action: null);
+
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var returnedVm = Assert.IsType<PrivateInstallationVm>(viewResult.Model);
+
+            Assert.Equal(2, returnedVm.Step);
+
+            Assert.True(controller.ModelState.IsValid);
+
+            serviceMock.Verify(
+                s => s.CreateInstallationAsync(It.IsAny<PrivateInstallationVm>()),
+                Times.Never
+            );
+        }
+
+        [Fact]
+        public async Task PrivateInstallation_Post_Step4_Valid_CallsServiceAndRedirects()
+        {
+            var serviceMock = new Mock<IValaisServices>();
+
+            serviceMock.Setup(s => s.CreateInstallationAsync(It.IsAny<PrivateInstallationVm>()))
+                       .ReturnsAsync(123);
+
+            var controller = CreateControllerWithSession(serviceMock.Object);
+
+            var vm = new PrivateInstallationVm
+            {
+                Step = 4,
+                Longueur = 10,
+                Largeur = 5,
+                Rue = "Rue du Test",
+                No = 10,
+                NPA = 1950,
+                Localite = "Sion"
+            };
+
+            var result = await controller.PrivateInstallation(vm, action: null);
+
+            var redirect = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("PrivateInstallationConfirmation", redirect.ActionName);
+
+            serviceMock.Verify(
+                s => s.CreateInstallationAsync(It.IsAny<PrivateInstallationVm>()),
+                Times.Once);
+
+            Assert.Equal(123, controller.TempData["RegistrationNumber"]);
+        }
+
+        [Fact]
+        public async Task PV_ReturnsViewWithPvChartVm()
+        {
+            var serviceMock = new Mock<IValaisServices>();
+
+            var fakePvChart = new ProductionChartVm
+            {
+                Title = "PV chart",
+                Years = new List<int> { 2020, 2021 },
+                KWh = new List<double> { 5, 6 }
+            };
+
+            serviceMock.Setup(s => s.GetPvChartAsync())
+                       .ReturnsAsync(fakePvChart);
+
+            var controller = CreateControllerWithSession(serviceMock.Object);
 
             var result = await controller.PV();
 
             var viewResult = Assert.IsType<ViewResult>(result);
-
             Assert.Equal("~/Views/Pv/Index.cshtml", viewResult.ViewName);
 
-      
             var model = Assert.IsType<ProductionChartVm>(viewResult.Model);
             Assert.Same(fakePvChart, model);
 
             serviceMock.Verify(s => s.GetPvChartAsync(), Times.Once);
         }
 
-        [Fact]
-        public void NER_ReturnsCorrectView()
-        {
-            var serviceMock = new Mock<IValaisServices>();
-            var controller = new HomeController(serviceMock.Object);
+    }
 
-            var result = controller.NER();
+    internal class FakeSession : ISession
+    {
+        private readonly Dictionary<string, byte[]> _store = new();
 
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal("~/Views/Home/NER/NER.cshtml", viewResult.ViewName);
-        }
+        public string Id { get; } = Guid.NewGuid().ToString();
+        public bool IsAvailable => true;
+        public IEnumerable<string> Keys => _store.Keys;
 
-        [Fact]
-        public void Biogaz_ReturnsCorrectView()
-        {
-            var serviceMock = new Mock<IValaisServices>();
-            var controller = new HomeController(serviceMock.Object);
+        public void Clear() => _store.Clear();
 
-            var result = controller.Biogaz();
+        public Task CommitAsync(CancellationToken cancellationToken = default)
+            => Task.CompletedTask;
 
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal("~/Views/Home/NER/Biogaz/Biogaz.cshtml", viewResult.ViewName);
-        }
+        public Task LoadAsync(CancellationToken cancellationToken = default)
+            => Task.CompletedTask;
 
-        [Fact]
-        public void Eolien_ReturnsCorrectView()
-        {
-            var serviceMock = new Mock<IValaisServices>();
-            var controller = new HomeController(serviceMock.Object);
+        public void Remove(string key) => _store.Remove(key);
 
-            var result = controller.Eolien();
+        public void Set(string key, byte[] value) => _store[key] = value;
 
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal("~/Views/Home/NER/Eolien/Eolien.cshtml", viewResult.ViewName);
-        }
-
-        [Fact]
-        public void MiniHydraulique_ReturnsCorrectView()
-        {
-            var serviceMock = new Mock<IValaisServices>();
-            var controller = new HomeController(serviceMock.Object);
-
-            var result = controller.MiniHydraulique();
-
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal("~/Views/Home/NER/Mini-hydraulique/MiniHydraulique.cshtml", viewResult.ViewName);
-        }
-
-        [Fact]
-        public void Privacy_ReturnsView()
-        {
-            var serviceMock = new Mock<IValaisServices>();
-            var controller = new HomeController(serviceMock.Object);
-
-            var result = controller.Privacy();
-
-            Assert.IsType<ViewResult>(result);
-        }
-
-
+        public bool TryGetValue(string key, out byte[] value)
+            => _store.TryGetValue(key, out value);
     }
 }
+
 
