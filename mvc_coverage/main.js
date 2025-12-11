@@ -225,15 +225,15 @@ var assemblies = [
       { "name": "AspNetCoreGeneratedDocument.Views_Home_PrivateInstallation_PrivateInstallationConfirmation", "rp": "MVC_Views_Home_PrivateInstallation_PrivateInstallationConfirmation.html", "cl": 0, "ucl": 2, "cal": 2, "tl": 34, "cb": 0, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_Pv_Index", "rp": "MVC_Views_Pv_Index.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 39, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_Shared_Error", "rp": "MVC_Views_Shared_Error.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 25, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "MVC.Controllers.HomeController", "rp": "MVC_HomeController.html", "cl": 72, "ucl": 36, "cal": 108, "tl": 181, "cb": 32, "tb": 59, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "MVC.Controllers.PvController", "rp": "MVC_PvController.html", "cl": 0, "ucl": 8, "cal": 8, "tl": 21, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "MVC.Controllers.HomeController", "rp": "MVC_HomeController.html", "cl": 107, "ucl": 1, "cal": 108, "tl": 181, "cb": 53, "tb": 59, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "MVC.Controllers.PvController", "rp": "MVC_PvController.html", "cl": 8, "ucl": 0, "cal": 8, "tl": 21, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "MVC.Models.ErrorViewModel", "rp": "MVC_ErrorViewModel.html", "cl": 0, "ucl": 2, "cal": 2, "tl": 9, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "MVC.Models.HomeDashboardVm", "rp": "MVC_HomeDashboardVm.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 8, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "MVC.Models.PrivateInstallationVm", "rp": "MVC_PrivateInstallationVm.html", "cl": 15, "ucl": 0, "cal": 15, "tl": 50, "cb": 2, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "MVC.Models.PrivateInstallationVm", "rp": "MVC_PrivateInstallationVm.html", "cl": 15, "ucl": 0, "cal": 15, "tl": 50, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "MVC.Models.ProductionChartVm", "rp": "MVC_ProductionChartVm.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 9, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "MVC.Services.PrivateInstallationDto", "rp": "MVC_PrivateInstallationDto.html", "cl": 0, "ucl": 11, "cal": 11, "tl": 89, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "MVC.Services.ProductionPieDto", "rp": "MVC_ProductionPieDto.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 89, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "MVC.Services.ValaisServices", "rp": "MVC_ValaisServices.html", "cl": 0, "ucl": 37, "cal": 37, "tl": 89, "cb": 0, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "MVC.Services.PrivateInstallationDto", "rp": "MVC_PrivateInstallationDto.html", "cl": 11, "ucl": 0, "cal": 11, "tl": 89, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "MVC.Services.ProductionPieDto", "rp": "MVC_ProductionPieDto.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 89, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "MVC.Services.ValaisServices", "rp": "MVC_ValaisServices.html", "cl": 36, "ucl": 1, "cal": 37, "tl": 89, "cb": 5, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "MVC.Views.Shared._NERDiagramPartialModel", "rp": "MVC__NERDiagramPartialModel.html", "cl": 0, "ucl": 2, "cal": 2, "tl": 12, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Program", "rp": "MVC_Program.html", "cl": 0, "ucl": 23, "cal": 23, "tl": 35, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
@@ -256,16 +256,16 @@ var riskHotspots = [
       { "value": 44, "exceeded": true },
     ]},
   {
-    "assembly": "MVC", "class": "MVC.Controllers.HomeController", "reportPath": "MVC_HomeController.html", "methodName": "PrivateInstallation()", "methodShortName": "PrivateInstallation()", "fileIndex": 0, "line": 65,
-    "metrics": [
-      { "value": 218, "exceeded": true },
-      { "value": 47, "exceeded": true },
-    ]},
-  {
     "assembly": "MVC", "class": "AspNetCoreGeneratedDocument.Views_Home_PrivateInstallation_PrivateInstallationConfirmation", "reportPath": "MVC_Views_Home_PrivateInstallation_PrivateInstallationConfirmation.html", "methodName": "ExecuteAsync()", "methodShortName": "ExecuteAsync()", "fileIndex": 0, "line": 2,
     "metrics": [
       { "value": 110, "exceeded": true },
       { "value": 10, "exceeded": false },
+    ]},
+  {
+    "assembly": "MVC", "class": "MVC.Controllers.HomeController", "reportPath": "MVC_HomeController.html", "methodName": "PrivateInstallation()", "methodShortName": "PrivateInstallation()", "fileIndex": 0, "line": 65,
+    "metrics": [
+      { "value": 47, "exceeded": true },
+      { "value": 47, "exceeded": true },
     ]},
   {
     "assembly": "MVC", "class": "AspNetCoreGeneratedDocument.Views_Home_NER_NER", "reportPath": "MVC_Views_Home_NER_NER.html", "methodName": "ExecuteAsync()", "methodShortName": "ExecuteAsync()", "fileIndex": 0, "line": 2,
