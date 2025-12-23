@@ -1,21 +1,37 @@
 pipeline {
-  agent any
+    agent any
 
-  stages {
-    stage('Checkout') {
-      steps { checkout scm }
-    }
+    stages {
 
-    stage('Restore') {
-      steps { bat 'dotnet restore' }
-    }
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
 
-    stage('Build') {
-      steps { bat 'dotnet build -c Release --no-restore' }
-    }
+        stage('Restore') {
+            steps {
+                dir('TaigaProject/ClassLibrary') {
+                    bat 'dotnet restore ClassLibrary.sln'
+                }
+            }
+        }
 
-    stage('Test') {
-      steps { bat 'dotnet test -c Release --no-build' }
+        stage('Build') {
+            steps {
+                dir('TaigaProject/ClassLibrary') {
+                    bat 'dotnet build ClassLibrary.sln -c Release --no-restore'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dir('TaigaProject/ClassLibrary') {
+                    bat 'dotnet test ClassLibrary.sln -c Release --no-build'
+                }
+            }
+        }
     }
-  }
 }
+
