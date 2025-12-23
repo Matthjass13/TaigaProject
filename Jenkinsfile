@@ -32,6 +32,14 @@ pipeline {
                 }
             }
         }
+        stage('Debug - list files') {
+              steps {
+                dir('TaigaProject/ClassLibrary') {
+                  bat 'dir'
+    }
+  }
+}
+
     }
 }
 
