@@ -9,6 +9,14 @@ pipeline {
             }
         }
 
+        stage('Debug - list files') {
+              steps {
+                dir('TaigaProject/ClassLibrary') {
+                  bat 'dir'
+    }
+  }
+}
+
         stage('Restore') {
             steps {
                 dir('TaigaProject/ClassLibrary') {
@@ -32,13 +40,7 @@ pipeline {
                 }
             }
         }
-        stage('Debug - list files') {
-              steps {
-                dir('TaigaProject/ClassLibrary') {
-                  bat 'dir'
-    }
-  }
-}
+        
 
     }
 }
