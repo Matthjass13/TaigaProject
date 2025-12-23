@@ -9,6 +9,20 @@ pipeline {
             }
         }
 
+        stage('Debug - list tree') {
+  steps {
+    bat 'echo === ROOT ==='
+    bat 'dir'
+    bat 'echo === TaigaProject ==='
+    bat 'dir TaigaProject'
+    bat 'echo === TaigaProject\\ClassLibrary ==='
+    bat 'dir TaigaProject\\ClassLibrary'
+    bat 'echo === Search SLN from root ==='
+    bat 'dir /s /b *.sln'
+  }
+}
+
+
         stage('Debug - list files') {
               steps {
                 dir('TaigaProject/ClassLibrary') {
