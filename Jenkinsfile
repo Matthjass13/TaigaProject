@@ -26,5 +26,14 @@ pipeline {
         }
       }
     }
+    stage('Publish (CD)') {
+  steps {
+    dir('ClassLibrary') {
+      bat 'dotnet publish ClassLibrary.sln -c Release -o publish'
+      bat 'dir publish'
+    }
+  }
+}
+
   }
 }
